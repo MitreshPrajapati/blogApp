@@ -1,0 +1,51 @@
+.ProfileDetails {
+    position: relative;
+    max-width: 400px;
+    border: 1px solid transparent;
+    display: flex;
+    /* flex-direction: column; */
+    gap: 1rem;
+    margin: auto;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    background-color: rgb(234, 234, 234);
+  }
+  .ProfileDetails > img {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+  .ProfileInfo {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-self: center;
+  }
+  
+  .userName {
+    position: relative;
+    display: flex;
+    gap: 0 1rem;
+    align-items: center;
+  }
+  
+  .userName > p {
+    font-weight: bold; 
+  }
+  .follow-btn {
+    /* margin: auto 0; */
+    border-radius: 0.3rem;
+    padding: 0.5rem 1rem;
+    font-size: 12px;
+   }
+  .followInfo {
+    position: relative;
+    display: flex;
+    gap: 10px;
+  }
+  .followInfo>span{
+      font-size: 14px;
+  }

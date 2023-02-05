@@ -1,0 +1,26 @@
+:root{
+    --buttonColor :  rgb(48, 121, 255);
+    --inputColor: lightgray;
+
+}
+
+.button{
+    border: none;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    font-weight: bold;
+    font-size: 14px;
+    color: white;
+    background-color: var(--buttonColor);
+}
+
+
+
+*{
+    margin: 0;
+    padding: 0;
+}
+.App{
+    margin: 0;
+    padding: 0; 
+}

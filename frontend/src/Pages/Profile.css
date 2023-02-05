@@ -1,0 +1,33 @@
+.Profile {
+  position: relative;
+  display: flex;
+  border: 1px solid transparent;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+
+.Posts{
+    position: relative;
+    display: grid;
+    max-width: 25rem;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(1fr, auto);
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+}
+.Posts>div:nth-of-type(2n-1){
+    background-color: rgb(154, 156, 236);
+    width: 200px;
+    height: 200px;
+    border-radius:0.5rem;
+}
+.Posts>div:nth-of-type(2n){
+    background-color: rgb(125, 101, 72);
+    width: 200px;
+    height: 200px;
+    border-radius:0.5rem;
+}
