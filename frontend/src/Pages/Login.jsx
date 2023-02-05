@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Box,
   Flex,
@@ -12,10 +12,12 @@ import {
   Avatar,
   AvatarGroup,
   Icon,
+  useToast
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import arun from '../assets/arun_png.png'
 import mitresh from '../assets/mitresh.jpg'
+import axios from "axios";
 
 const avatars = [
   {
@@ -32,8 +34,52 @@ const avatars = [
 
 export const Login = () => {
 
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const navigate = useNavigate();
+    const toast = useToast();
+  
+    const handleSubmit = () => {
+      if ( email !== "" && password !== "") {
+        const payload = {
+          email,
+          password,
+        };
+  
+        axios.post(`http://localhost:7070/auth/login`, payload).then((res) => {
+          
+            console.log(res.data);
+            //    navigate('/login')
+           return toast({
+                position: "top",
+                duration: 2000,
+                render: () => (
+                  <Box color="white" borderRadius={"10px"} p={3} bg="blue.500">
+                    👉Login Successfully!
+                  </Box>
+                )
+            }),
+            setTimeout(() => {
+              navigate("/blog");
+            }, 1000);
+            setEmail("");
+            setPassword("");
+          
+        });
+      } else if (email === "" || password === "") {
+        return toast({
+          position: "top",
+          duration: 2000,
+          render: () => (
+            <Box color="white" borderRadius={"10px"} p={3} bg="blue.500">
+              😡Please Fill all the fields below
+            </Box>
+          ),
+        });
+      }
+    };
 
-    const navigate = useNavigate()
+    
 
 
     const goToSignup=()=>
@@ -163,6 +209,7 @@ export const Login = () => {
                 _placeholder={{
                   color: "gray.500",
                 }}
+                onChange={(e)=>setEmail(e.target.value)}
               />
               <Input
                 placeholder="Enter your Password"
@@ -172,6 +219,7 @@ export const Login = () => {
                 _placeholder={{
                   color: "gray.500",
                 }}
+                onChange={(e)=>setPassword(e.target.value)}
               />
               {/* <Button  fontFamily={"heading"} bg={"gray.200"} color={"gray.800"}>
                 Signup
@@ -187,6 +235,7 @@ export const Login = () => {
                 bgGradient: "linear(to-r, red.400,pink.400)",
                 boxShadow: "xl",
               }}
+              onClick={handleSubmit}
             >
               Login
             </Button>

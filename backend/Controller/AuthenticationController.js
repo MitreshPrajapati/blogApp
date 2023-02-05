@@ -4,21 +4,27 @@ const jwt = require('jsonwebtoken');
 const { UserModel } = require("../Models/User.model");
 require('dotenv').config();
 
+
+const  ROUND= process.env.ROUND || 5
+const SECRETKEY = process.env.SECRETKEY || 'Jawlia'
+
 const SignupFn = async (req, res) => {
-    const { email, password } = req.body;
+    const { username, email, password } = req.body;
 
     const user = await UserModel.findOne({ email });
     if (user) {
-        res.send({ message: "User already exists, Please Login" });
+        res.send({ message: "User already exists, Please Login"});
     } else {
 
-        bcrypt.hash(password, Number(process.env.ROUND), async function (err, hashedPassword) {
+        // bcrypt.hash(password, Number(process.env.ROUND), async function (err, hashedPassword) {
+        bcrypt.hash(password, Number(ROUND), async function (err, hashedPassword) {
 
             if (err) {
                 res.send({ message: err.message })
             }
 
             const newUser = new UserModel({
+                username,
                 email,
                 password: hashedPassword
             })
@@ -44,7 +50,7 @@ const LoginFn = async (req, res) => {
                     res.send({ message: err })
                 } else {
                     if (result) {
-                        const token = jwt.sign({ userId: user._id }, process.env.SECRETKEY)
+                        const token = jwt.sign({ userId: user._id }, SECRETKEY)
                         res.send({ user, "token": token })
                     } else {
                         res.send({ message: " Wrong credintials" })
