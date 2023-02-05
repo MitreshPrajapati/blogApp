@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Box,
   Flex,
@@ -12,11 +12,13 @@ import {
   Avatar,
   AvatarGroup,
   Icon,
+  useToast,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
-import arun from '../assets/arun.png'
-import mitresh from '../assets/mitresh.jpg'
+import arun from "../assets/arun.png";
+import mitresh from "../assets/mitresh.jpg";
 
 const avatars = [
   {
@@ -26,26 +28,77 @@ const avatars = [
   {
     name: "Arun",
     url: arun,
-  }
- 
-
+  },
 ];
 
 export const Signup = () => {
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+  const toast = useToast();
 
+  const handleSubmit = () => {
+    if (username !== "" && email !== "" && password !== "") {
+      const payload = {
+        username,
+        email,
+        password,
+      };
 
-    const navigate = useNavigate()
+      axios.post(`http://localhost:7070/auth/signup`, payload).then((res) => {
+        if (res.data.message === "User already exists, Please Login") {
+          console.log(res);
+          //    navigate('/login')
+          toast({
+            title: "Already Exist",
+            description: "Go to Login Page",
+            //    status:'error',
+            duration: 2000,
+            isClosable: true,
+            position: "top",
+          });
+          setTimeout(() => {
+            navigate("/login");
+          }, 1000);
+          setUsername("");
+          setEmail("");
+          setPassword("");
+        } else if (res.data.message === "User registred successfully.") {
+          console.log(res.data);
 
-
-    const goToLogin=()=>
-    {
-        return(
-            navigate('/Login')
-        )
-
+          toast({
+            title: "Signup Successfully.",
+            description: "It's our pleasure! Thank you😊.",
+            status: "success",
+            duration: 2000,
+            isClosable: true,
+            position: "top",
+          });
+          setTimeout(() => {
+            navigate("/login");
+          }, 1000);
+          setUsername("");
+          setEmail("");
+          setPassword("");
+        }
+      });
+    } else if (username === "" || email === "" || password === "") {
+      return toast({
+        position: "top",
+        duration: 2000,
+        render: () => (
+          <Box color="white" borderRadius={"10px"} p={3} bg="blue.500">
+            Please Fill all the fields below
+          </Box>
+        ),
+      });
     }
+  };
 
-
+  const goToLogin = () => {
+    return navigate("/Login");
+  };
 
   return (
     <Box position={"relative"}>
@@ -150,8 +203,8 @@ export const Signup = () => {
               </Text>
             </Heading>
             <Text color={"gray.500"} fontSize={{ base: "sm", sm: "md" }}>
-              We’re looking for amazing bloggers just like you! Become a part
-              of our rockstar blogging team and skyrocket your thinking!
+              We’re looking for amazing bloggers just like you! Become a part of
+              our rockstar blogging team and skyrocket your thinking!
             </Text>
           </Stack>
           <Box as={"form"} mt={7}>
@@ -164,6 +217,7 @@ export const Signup = () => {
                 _placeholder={{
                   color: "gray.500",
                 }}
+                onChange={(e) => setUsername(e.target.value)}
               />
               <Input
                 placeholder="Enter your email"
@@ -173,6 +227,7 @@ export const Signup = () => {
                 _placeholder={{
                   color: "gray.500",
                 }}
+                onChange={(e) => setEmail(e.target.value)}
               />
               <Input
                 placeholder="Enter your Password"
@@ -182,8 +237,8 @@ export const Signup = () => {
                 _placeholder={{
                   color: "gray.500",
                 }}
+                onChange={(e) => setPassword(e.target.value)}
               />
-            
             </Stack>
             <Button
               fontFamily={"heading"}
@@ -195,34 +250,37 @@ export const Signup = () => {
                 bgGradient: "linear(to-r, red.400,pink.400)",
                 boxShadow: "xl",
               }}
+              onClick={handleSubmit}
             >
               Register
             </Button>
-            <Text textAlign={'center'} mt={5} color={"gray.500"} fontSize={{ base: "sm", sm: "md" }}>
+            <Text
+              textAlign={"center"}
+              mt={5}
+              color={"gray.500"}
+              fontSize={{ base: "sm", sm: "md" }}
+            >
               Already a member!
             </Text>
             <Box>
-              <Text textAlign={'center'}>
+              <Text textAlign={"center"}>
                 <Button
                   fontFamily={"heading"}
                   mt={2}
-                    bgGradient="linear(to-r, red.400,pink.400)"
-                    color={"white"}
-                    _hover={{
-                        bgGradient: "linear(to-r, red.400,pink.400)",
-                        boxShadow: "xl",
-                      }}
-                      onClick={goToLogin}
+                  bgGradient="linear(to-r, red.400,pink.400)"
+                  color={"white"}
+                  _hover={{
+                    bgGradient: "linear(to-r, red.400,pink.400)",
+                    boxShadow: "xl",
+                  }}
+                  onClick={goToLogin}
 
-                //   variant="link"
+                  //   variant="link"
                 >
                   Login
                 </Button>
               </Text>
-              </Box>
-
-
-
+            </Box>
           </Box>
           form
         </Stack>

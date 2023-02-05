@@ -2,6 +2,10 @@ const { UserModel } = require("../Models/User.model");
 const bcrypt = require('bcrypt');
 require('dotenv').config();
 
+
+const ROUND = process.env.ROUND || 5
+// const mySecretKey = process.env.SECRETKEY || 'Jawlia'
+
 const getUserById = async (req, res) => {
     const { id } = req.params;
 
@@ -28,7 +32,7 @@ const updateUser = async (req, res) => {
         // then encrypt the new password and update req.body.password 
         // now update user with req.body
         if (user && req.body.password) {
-            bcrypt.hash(req.body.password, Number(process.env.ROUND), async function (err, hashedPassword) {
+            bcrypt.hash(req.body.password, Number(ROUND), async function (err, hashedPassword) {
                 if (err) res.send({ message: err })
                 else {
                     req.body.password = hashedPassword
