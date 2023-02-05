@@ -24,7 +24,7 @@ const SignupFn = async (req, res) => {
             })
 
             await newUser.save();
-            res.send(newUser);
+            res.send({message:"User registred successfully."});
 
         });
     }

@@ -51,6 +51,8 @@ const updatePost = async (req, res) => {
     }
 
 }
+
+
 module.exports = {
     getPosts,
     createPost,
