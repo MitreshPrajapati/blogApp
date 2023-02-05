@@ -14,28 +14,20 @@ import {
   Icon,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
+import arun from '../assets/arun_png.png'
+import mitresh from '../assets/mitresh.jpg'
 
 const avatars = [
   {
-    name: "Ryan Florence",
-    url: "https://bit.ly/ryan-florence",
+    name: "mitresh",
+    url: mitresh,
   },
   {
-    name: "Segun Adebayo",
-    url: "https://bit.ly/sage-adebayo",
-  },
-  {
-    name: "Kent Dodds",
-    url: "https://bit.ly/kent-c-dodds",
-  },
-  {
-    name: "Prosper Otemuyiwa",
-    url: "https://bit.ly/prosper-baba",
-  },
-  {
-    name: "Christian Nwamba",
-    url: "https://bit.ly/code-beast",
-  },
+    name: "Arun",
+    url: arun,
+  }
+ 
+
 ];
 
 export const Login = () => {
@@ -79,13 +71,13 @@ export const Login = () => {
             Login from here!
           </Heading>
           <Stack direction={"row"} spacing={4} align={"center"}>
-            <AvatarGroup>
+          <AvatarGroup>
               {avatars.map((avatar) => (
                 <Avatar
                   key={avatar.name}
                   name={avatar.name}
                   src={avatar.url}
-                  size={{ base: "md", md: "lg" }}
+                  size={{ base: "lg", md: "xl" }}
                   position={"relative"}
                   zIndex={2}
                   _before={{
@@ -114,8 +106,8 @@ export const Login = () => {
               bg={"gray.800"}
               color={"white"}
               rounded={"full"}
-              minWidth={{ base: "44px", md: "60px" }}
-              minHeight={{ base: "44px", md: "60px" }}
+              minWidth={{ base: "60px", md: "90px" }}
+              minHeight={{ base: "60px", md: "90px" }}
               position={"relative"}
               _before={{
                 content: '""',
