@@ -46,7 +46,7 @@ export const Signup = () => {
         password,
       };
 
-      axios.post(`http://localhost:7070/auth/signup`, payload).then((res) => {
+      axios.post(`https://blogapp-gp7t.onrender.com/auth/signup`, payload).then((res) => {
         if (res.data.message === "User already exists, Please Login") {
           console.log(res);
           //    navigate('/login')

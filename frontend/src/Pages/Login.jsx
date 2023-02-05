@@ -43,7 +43,7 @@ export const Login = () => {
         password,
       };
 
-      axios.post(`http://localhost:7070/auth/login`, payload).then((res) => {
+      axios.post(`https://blogapp-gp7t.onrender.com/auth/login`, payload).then((res) => {
         if (res.data.token) {
           console.log(res.data);
           localStorage.setItem("blogToken", res.data.token);
