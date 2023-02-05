@@ -51,12 +51,19 @@ export const Signup = () => {
           console.log(res);
           //    navigate('/login')
           toast({
-            title: "Already Exist",
-            description: "Go to Login Page",
-            //    status:'error',
-            duration: 2000,
-            isClosable: true,
             position: "top",
+            duration: 2000,
+            render: () => (
+              <Box
+                color="white"
+                bgGradient="linear(to-r, red.400,pink.400)"
+                fontSize={"xl"}
+                borderRadius={"10px"}
+                p={3}
+              >
+                😡😡User Exist! Please Login 👉
+              </Box>
+            ),
           });
           setTimeout(() => {
             navigate("/login");
@@ -68,12 +75,21 @@ export const Signup = () => {
           console.log(res.data);
 
           toast({
-            title: "Signup Successfully.",
-            description: "It's our pleasure! Thank you😊.",
-            status: "success",
-            duration: 2000,
-            isClosable: true,
             position: "top",
+            duration: 2000,
+            render: () => (
+              <Box
+                color="white"
+                bgGradient="linear(to-r, red.400,pink.400)"
+                fontSize={"xl"}
+                borderRadius={"10px"}
+                p={3}
+              >
+                😊😊 Hi connections!
+                <br />
+                😍😍 It's our pleauser
+              </Box>
+            ),
           });
           setTimeout(() => {
             navigate("/login");
@@ -88,8 +104,14 @@ export const Signup = () => {
         position: "top",
         duration: 2000,
         render: () => (
-          <Box color="white" borderRadius={"10px"} p={3} bg="blue.500">
-            Please Fill all the fields below
+          <Box
+            color="white"
+            bgGradient="linear(to-r, red.400,pink.400)"
+            fontSize={"xl"}
+            borderRadius={"10px"}
+            p={3}
+          >
+            😡😡Please Fill all the fields below
           </Box>
         ),
       });
