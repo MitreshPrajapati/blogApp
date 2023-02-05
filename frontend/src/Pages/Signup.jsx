@@ -15,7 +15,7 @@ import {
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
-import arun from '../assets/arun_png.png'
+import arun from '../assets/arun.png'
 import mitresh from '../assets/mitresh.jpg'
 
 const avatars = [
@@ -53,10 +53,10 @@ export const Signup = () => {
         as={SimpleGrid}
         maxW={"7xl"}
         columns={{ base: 1, md: 2 }}
-        spacing={{ base: 10, lg: 32 }}
-        py={{ base: 10, sm: 20, lg: 32 }}
+        spacing={{ base: 8, lg: 25 }}
+        py={{ base: 6, sm: 25, lg: 27 }}
       >
-        <Stack spacing={{ base: 10, md: 20 }}>
+        <Stack spacing={{ base: 8, md: 18 }}>
           <Heading
             lineHeight={1.1}
             fontSize={{ base: "3xl", sm: "4xl", md: "5xl", lg: "6xl" }}
@@ -154,8 +154,8 @@ export const Signup = () => {
               of our rockstar blogging team and skyrocket your thinking!
             </Text>
           </Stack>
-          <Box as={"form"} mt={10}>
-            <Stack spacing={4}>
+          <Box as={"form"} mt={7}>
+            <Stack spacing={3}>
               <Input
                 placeholder="Enter Name"
                 bg={"gray.100"}
