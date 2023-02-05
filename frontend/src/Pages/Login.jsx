@@ -12,11 +12,11 @@ import {
   Avatar,
   AvatarGroup,
   Icon,
-  useToast
+  useToast,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
-import arun from '../assets/arun_png.png'
-import mitresh from '../assets/mitresh.jpg'
+import arun from "../assets/arun_png.png";
+import mitresh from "../assets/mitresh.jpg";
 import axios from "axios";
 
 const avatars = [
@@ -27,74 +27,91 @@ const avatars = [
   {
     name: "Arun",
     url: arun,
-  }
- 
-
+  },
 ];
 
 export const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+  const toast = useToast();
 
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const navigate = useNavigate();
-    const toast = useToast();
-  
-    const handleSubmit = () => {
-      if ( email !== "" && password !== "") {
-        const payload = {
-          email,
-          password,
-        };
-  
-        axios.post(`http://localhost:7070/auth/login`, payload).then((res) => {
-          
-            console.log(res.data);
-            //    navigate('/login')
-           return toast({
-                position: "top",
-                duration: 2000,
-                render: () => (
-                  <Box color="white" borderRadius={"10px"} p={3} bg="blue.500">
-                    👉Login Successfully!
-                  </Box>
-                )
+  const handleSubmit = () => {
+    if (email !== "" && password !== "") {
+      const payload = {
+        email,
+        password,
+      };
+
+      axios.post(`http://localhost:7070/auth/login`, payload).then((res) => {
+        if (res.data.token) {
+          console.log(res.data);
+          localStorage.setItem("blogToken", res.data.token);
+          return (
+            toast({
+              position: "top",
+              duration: 2000,
+              render: () => (
+                <Box
+                  color="white"
+                  bgGradient="linear(to-r, red.400,pink.400)"
+                  fontSize={"xl"}
+                  borderRadius={"10px"}
+                  p={3}
+                >
+                  👉Login Successfully!!
+                </Box>
+              ),
             }),
             setTimeout(() => {
               navigate("/blog");
-            }, 1000);
-            setEmail("");
-            setPassword("");
-          
-        });
-      } else if (email === "" || password === "") {
-        return toast({
-          position: "top",
-          duration: 2000,
-          render: () => (
-            <Box color="white" borderRadius={"10px"} p={3} bg="blue.500">
-              😡Please Fill all the fields below
-            </Box>
-          ),
-        });
-      }
-    };
-
-    
-
-
-    const goToSignup=()=>
-    {
-        return(
-            navigate('/signup')
-        )
-
+            }, 1000)
+          );
+        } else {
+          return toast({
+            position: "top",
+            duration: 2000,
+            render: () => (
+              <Box
+                color="white"
+                bgGradient="linear(to-r, red.400,pink.400)"
+                fontSize={"xl"}
+                borderRadius={"10px"}
+                p={3}
+              >
+                🤔Invalid Credentials!!
+                👉 Please try again later!!
+              </Box>
+            ),
+          });
+        }
+      });
+    } else if (email === "" || password === "") {
+      return toast({
+        position: "top",
+        duration: 2000,
+        render: () => (
+          <Box
+            color="white"
+            bgGradient="linear(to-r, red.400,pink.400)"
+            fontSize={"xl"}
+            borderRadius={"10px"}
+            p={3}
+          >
+            😡Please fill all the fields below!!
+          </Box>
+        ),
+      });
     }
+  };
 
-
+  const goToSignup = () => {
+    return navigate("/signup");
+  };
 
   return (
     <Box position={"relative"}>
-     <Container
+      <Container
         as={SimpleGrid}
         maxW={"7xl"}
         columns={{ base: 1, md: 2 }}
@@ -117,7 +134,7 @@ export const Login = () => {
             Login from here!
           </Heading>
           <Stack direction={"row"} spacing={4} align={"center"}>
-          <AvatarGroup>
+            <AvatarGroup>
               {avatars.map((avatar) => (
                 <Avatar
                   key={avatar.name}
@@ -209,7 +226,7 @@ export const Login = () => {
                 _placeholder={{
                   color: "gray.500",
                 }}
-                onChange={(e)=>setEmail(e.target.value)}
+                onChange={(e) => setEmail(e.target.value)}
               />
               <Input
                 placeholder="Enter your Password"
@@ -219,7 +236,7 @@ export const Login = () => {
                 _placeholder={{
                   color: "gray.500",
                 }}
-                onChange={(e)=>setPassword(e.target.value)}
+                onChange={(e) => setPassword(e.target.value)}
               />
               {/* <Button  fontFamily={"heading"} bg={"gray.200"} color={"gray.800"}>
                 Signup
@@ -239,23 +256,28 @@ export const Login = () => {
             >
               Login
             </Button>
-            <Text textAlign={'center'} mt={5} color={"gray.500"} fontSize={{ base: "sm", sm: "md" }}>
+            <Text
+              textAlign={"center"}
+              mt={5}
+              color={"gray.500"}
+              fontSize={{ base: "sm", sm: "md" }}
+            >
               If you are new to our blog app
             </Text>
             <Box>
-              <Text textAlign={'center'}>
+              <Text textAlign={"center"}>
                 <Button
                   fontFamily={"heading"}
                   mt={2}
-                    bgGradient="linear(to-r, red.400,pink.400)"
-                    color={"white"}
-                    _hover={{
-                        bgGradient: "linear(to-r, red.400,pink.400)",
-                        boxShadow: "xl",
-                      }}
-                      onClick={goToSignup}
+                  bgGradient="linear(to-r, red.400,pink.400)"
+                  color={"white"}
+                  _hover={{
+                    bgGradient: "linear(to-r, red.400,pink.400)",
+                    boxShadow: "xl",
+                  }}
+                  onClick={goToSignup}
 
-                //   variant="link"
+                  //   variant="link"
                 >
                   Register
                 </Button>
