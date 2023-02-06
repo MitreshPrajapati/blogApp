@@ -8,12 +8,13 @@ import {
   Avatar,
   useColorModeValue,
   Image,
-  useColorMode
+  useColorMode,
+  Button
   
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import axios from 'axios'
-import { getColor } from "@chakra-ui/theme-tools";
+import Styles from './pages.module.css'
 
 export const BlogPage = () => {
     const [data, setData]= useState([])
@@ -22,13 +23,7 @@ export const BlogPage = () => {
     
     
     
-    // const {
-    //   colorMode
-    // } = useColorMode();
-
-    // return colorMode === "dark" ? setThemeCol('gray.900') : setThemeCol('white');
     
-   
 
    
 
@@ -76,6 +71,7 @@ export const BlogPage = () => {
           rounded={"md"}
           p={6}
           overflow={"hidden"}
+          key={blogs._id}
         >
           <Box
             // h={"210px"}
@@ -89,6 +85,7 @@ export const BlogPage = () => {
               src={
                 "https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
               }
+              cursor='pointer'
             //   layout={"fill"}
             />
           </Box>
@@ -104,14 +101,17 @@ export const BlogPage = () => {
             </Text> */}
             <Heading
               color={colorMode === "dark" ? 'gray.900' : 'white'}
-              fontSize={"2xl"}
+              fontSize={['lg',"2xl"]}
               fontFamily={"body"}
+              _hover={{textDecoration:'underline'}}
             >
              {blogs.title}
             </Heading>
-            <Text color={ colorMode === "dark" ? 'gray.900' : 'white'}>
+            <Text cursor={'pointer'}   className={Styles.blog_desc}   color={ colorMode === "dark" ? 'gray.900' : 'white'}>
              {blogs.desc}
             </Text>
+            
+            
           </Stack>
           <Stack mt={6} direction={"row"} spacing={4} align={"center"}>
             <Avatar
@@ -119,7 +119,7 @@ export const BlogPage = () => {
               alt={"Author"}
             />
             <Stack direction={"column"} spacing={0} fontSize={"sm"}>
-              <Text color={'red'} fontWeight={600}>Achim Rolle</Text>
+              <Text _hover={{cursor:'pointer', textDecor:'underline'}} color={'red'} fontWeight={600}>Achim Rolle</Text>
               <Text color={"gray.500"}>Feb 08, 2021 · 6min read</Text>
             </Stack>
           </Stack>

@@ -11,3 +11,10 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.blog_desc{
+  display: -webkit-box;
+  --webkit-line-clamp: 1; /* or 4 if para */
+  --webkit-box-orient: vertical;
+  overflow: hidden;
+}

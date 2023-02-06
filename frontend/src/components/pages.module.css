@@ -1,0 +1,16 @@
+.blog_desc{
+   height: 100px;
+   overflow: hidden;
+}
+/* .blog_desc{
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;  
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+} */
+
+.blog_desc:hover{
+    height: fit-content;
+}

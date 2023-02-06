@@ -17,6 +17,7 @@ import {
   Center,
 } from '@chakra-ui/react';
 import { MoonIcon, SunIcon } from '@chakra-ui/icons';
+import { MenuBar } from './MenuBar';
 
 // const NavLink = () => (
 //   <Link
@@ -39,7 +40,8 @@ export const Navbar= ()=> {
     <>
       <Box   w='100%' position={'fixed'} zIndex='999999'  bg={useColorModeValue('gray.100', 'gray.900')} px={4}>
         <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
-          <Box>Logo</Box>
+          <box><MenuBar/></box>
+          <Box fontSize={['lg','2xl']} fontWeight='bold' fontFamily={'cursive'}>Blog App</Box>
 
           <Flex alignItems={'center'}>
             <Stack direction={'row'} spacing={7}>
