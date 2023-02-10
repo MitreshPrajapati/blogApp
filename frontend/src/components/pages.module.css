@@ -1,6 +1,8 @@
 .blog_desc{
-   height: 100px;
+    min-height: 70px;
+   max-height: 70px;
    overflow: hidden;
+   transition: transform 5s;
 }
 /* .blog_desc{
     display: -webkit-box;
@@ -12,5 +14,7 @@
 } */
 
 .blog_desc:hover{
-    height: fit-content;
+    /* height: 100px; */
+   
+    max-height: fit-content;
 }

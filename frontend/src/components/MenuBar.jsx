@@ -17,21 +17,16 @@ const navigate = useNavigate()
     variant='outline'
   />
   <MenuList>
-    <MenuItem border={'1px solid transparent'} _hover={{border:'1px solid gray'}} onClick={()=>navigate('/writeblog')}  icon={<AddIcon />}>
+    <MenuItem border={'1px solid transparent'}  onClick={()=>navigate('/writeblog')}  icon={<AddIcon />}>
       Write Your Blog
     </MenuItem>
-    <MenuItem border={'1px solid transparent'} _hover={{border:'1px solid gray'}}  icon={<ExternalLinkIcon />} >
-      New Window
-    </MenuItem>
-    <MenuItem border={'1px solid transparent'} _hover={{border:'1px solid gray'}}  icon={<RepeatIcon/>} >
-      Open Closed Tab
-    </MenuItem>
-    <MenuItem border={'1px solid transparent'} _hover={{border:'1px solid gray'}}  icon={<EditIcon />}>
-      Open File...
-    </MenuItem>
+    
   </MenuList>
 </Menu>
     
     </>
   )
 }
+
+
+// _hover={{border:'1px solid gray'}}

@@ -15,9 +15,11 @@ import {
   Stack,
   useColorMode,
   Center,
+  Text,
 } from '@chakra-ui/react';
 import { MoonIcon, SunIcon } from '@chakra-ui/icons';
 import { MenuBar } from './MenuBar';
+import { useNavigate } from 'react-router-dom';
 
 // const NavLink = () => (
 //   <Link
@@ -36,12 +38,13 @@ import { MenuBar } from './MenuBar';
 export const Navbar= ()=> {
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const navigate = useNavigate()
   return (
     <>
       <Box   w='100%' position={'fixed'} zIndex='999999'  bg={useColorModeValue('gray.100', 'gray.900')} px={4}>
         <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
           <box><MenuBar/></box>
-          <Box fontSize={['lg','2xl']} fontWeight='bold' fontFamily={'cursive'}>Blog App</Box>
+          <Box fontSize={['lg','2xl']} fontWeight='bold' fontFamily={'cursive'}><Text cursor={'pointer'} onClick={()=>navigate('/blog')}>Blog App</Text></Box>
 
           <Flex alignItems={'center'}>
             <Stack direction={'row'} spacing={7}>
