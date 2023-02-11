@@ -40,7 +40,7 @@ export const Home = () => {
       <Stack
         textAlign={"center"}
         align={"center"}
-        spacing={{ base: 4, md: 10 }}
+        spacing={{ base: 4, md: 8 }}
         py={{ base: 5, md: 15 }}
       >
         <Heading
@@ -62,7 +62,7 @@ export const Home = () => {
          <Heading
           fontWeight={600}
           fontSize={{ base: "2xl", sm: "3xl", md: "4xl" }}
-          lineHeight={"50%"}
+          lineHeight={"100%"}
         >
           Wait No More {" "}
           <Text as={"span"} color={"orange.400"}>
@@ -84,10 +84,10 @@ export const Home = () => {
             Login
           </Button>
         </Stack>
-        <Flex w={"full"}>
+        <Flex w={"full"} justifyContent='center'>
           <Illustration
-            height={{ sm: "24rem", lg: "28rem" }}
-            mt={{ base: 12, sm: 16 }}
+            height={{ sm: "18rem", lg: "19rem" }}
+            mt={{ base: 8, sm: 5 }}
           />
         </Flex>
       </Stack>

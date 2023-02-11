@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Box,
   Flex,
@@ -12,10 +12,12 @@ import {
   Avatar,
   AvatarGroup,
   Icon,
+  useToast,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
-import arun from '../assets/arun_png.png'
-import mitresh from '../assets/mitresh.jpg'
+import arun from "../assets/arun_png.png";
+import mitresh from "../assets/mitresh.jpg";
+import axios from "axios";
 
 const avatars = [
   {
@@ -25,26 +27,85 @@ const avatars = [
   {
     name: "Arun",
     url: arun,
-  }
- 
-
+  },
 ];
 
 export const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+  const toast = useToast();
 
+  const handleSubmit = () => {
+    if (email !== "" && password !== "") {
+      const payload = {
+        email,
+        password,
+      };
 
-    const navigate = useNavigate()
-
-
-    const goToSignup=()=>
-    {
-        return(
-            navigate('/signup')
-        )
-
+      axios.post(`https://blogapp-gp7t.onrender.com/auth/login`, payload).then((res) => {
+        if (res.data.token) {
+          console.log(res.data);
+          localStorage.setItem("blogToken", res.data.token);
+          return (
+            toast({
+              position: "top",
+              duration: 2000,
+              render: () => (
+                <Box
+                  color="white"
+                  bgGradient="linear(to-r, red.400,pink.400)"
+                  fontSize={"xl"}
+                  borderRadius={"10px"}
+                  p={3}
+                >
+                  👉Login Successfully!!
+                </Box>
+              ),
+            }),
+              navigate("/blog")
+          );
+        } else {
+          return toast({
+            position: "top",
+            duration: 2000,
+            render: () => (
+              <Box
+                color="white"
+                bgGradient="linear(to-r, red.400,pink.400)"
+                fontSize={"xl"}
+                borderRadius={"10px"}
+                p={3}
+              >
+                🤔Invalid Credentials!!
+                👉 Please try again later!!
+              </Box>
+            ),
+          });
+        }
+      });
+    } else if (email === "" || password === "") {
+      return toast({
+        position: "top",
+        duration: 2000,
+        render: () => (
+          <Box
+            color="white"
+            bgGradient="linear(to-r, red.400,pink.400)"
+            fontSize={"xl"}
+            borderRadius={"10px"}
+            p={3}
+          >
+            😡Please fill all the fields below!!
+          </Box>
+        ),
+      });
     }
+  };
 
-
+  const goToSignup = () => {
+    return navigate("/signup");
+  };
 
   return (
     <Box position={"relative"}>
@@ -52,15 +113,15 @@ export const Login = () => {
         as={SimpleGrid}
         maxW={"7xl"}
         columns={{ base: 1, md: 2 }}
-        spacing={{ base: 10, lg: 32 }}
-        py={{ base: 10, sm: 20, lg: 32 }}
+        spacing={{ base: 8, lg: 25 }}
+        py={{ base: 6, sm: 25, lg: 27 }}
       >
-        <Stack spacing={{ base: 10, md: 20 }}>
+        <Stack spacing={{ base: 8, md: 18 }}>
           <Heading
             lineHeight={1.1}
             fontSize={{ base: "3xl", sm: "4xl", md: "5xl", lg: "6xl" }}
           >
-            Already a member{" "}
+            Already our member{" "}
             <Text
               as={"span"}
               bgGradient="linear(to-r, red.400,pink.400)"
@@ -71,7 +132,7 @@ export const Login = () => {
             Login from here!
           </Heading>
           <Stack direction={"row"} spacing={4} align={"center"}>
-          <AvatarGroup>
+            <AvatarGroup>
               {avatars.map((avatar) => (
                 <Avatar
                   key={avatar.name}
@@ -163,6 +224,7 @@ export const Login = () => {
                 _placeholder={{
                   color: "gray.500",
                 }}
+                onChange={(e) => setEmail(e.target.value)}
               />
               <Input
                 placeholder="Enter your Password"
@@ -172,6 +234,7 @@ export const Login = () => {
                 _placeholder={{
                   color: "gray.500",
                 }}
+                onChange={(e) => setPassword(e.target.value)}
               />
               {/* <Button  fontFamily={"heading"} bg={"gray.200"} color={"gray.800"}>
                 Signup
@@ -187,26 +250,32 @@ export const Login = () => {
                 bgGradient: "linear(to-r, red.400,pink.400)",
                 boxShadow: "xl",
               }}
+              onClick={handleSubmit}
             >
               Login
             </Button>
-            <Text textAlign={'center'} mt={5} color={"gray.500"} fontSize={{ base: "sm", sm: "md" }}>
+            <Text
+              textAlign={"center"}
+              mt={5}
+              color={"gray.500"}
+              fontSize={{ base: "sm", sm: "md" }}
+            >
               If you are new to our blog app
             </Text>
             <Box>
-              <Text textAlign={'center'}>
+              <Text textAlign={"center"}>
                 <Button
                   fontFamily={"heading"}
                   mt={2}
-                    bgGradient="linear(to-r, red.400,pink.400)"
-                    color={"white"}
-                    _hover={{
-                        bgGradient: "linear(to-r, red.400,pink.400)",
-                        boxShadow: "xl",
-                      }}
-                      onClick={goToSignup}
+                  bgGradient="linear(to-r, red.400,pink.400)"
+                  color={"white"}
+                  _hover={{
+                    bgGradient: "linear(to-r, red.400,pink.400)",
+                    boxShadow: "xl",
+                  }}
+                  onClick={goToSignup}
 
-                //   variant="link"
+                  //   variant="link"
                 >
                   Register
                 </Button>

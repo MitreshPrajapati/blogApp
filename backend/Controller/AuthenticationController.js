@@ -4,7 +4,12 @@ const jwt = require('jsonwebtoken');
 const { UserModel } = require("../Models/User.model");
 require('dotenv').config();
 
+
+const  ROUND= process.env.ROUND || 5
+const SECRETKEY = process.env.SECRETKEY || 'Jawlia'
+
 const SignupFn = async (req, res) => {
+
     const { user_name, email, password } = req.body;
 
     if (email.includes("@gmail.com") ||
@@ -17,15 +22,19 @@ const SignupFn = async (req, res) => {
 
             bcrypt.hash(password, Number(process.env.ROUND), async function (err, hashedPassword) {
 
+   
+
                 if (err) {
                     res.send({ message: err.message })
                 }
 
-                const newUser = new UserModel({
-                    user_name,
-                    email,
-                    password: hashedPassword
-                })
+
+            const newUser = new UserModel({
+                username,
+                email,
+                password: hashedPassword
+            })
+
 
                 await newUser.save();
                 res.send({ message: "User registred successfully." });
@@ -50,10 +59,16 @@ const LoginFn = async (req, res) => {
             const user = await UserModel.findOne({ email });
 
 
-            if (user) {
-                bcrypt.compare(password, user.password, function (err, result) {
-                    if (err) {
-                        res.send({ message: err })
+
+        if (user) {
+            bcrypt.compare(password, user.password, function (err, result) {
+                if (err) {
+                    res.send({ message: err })
+                } else {
+                    if (result) {
+                        const token = jwt.sign({ userId: user._id }, SECRETKEY)
+                        res.send({ user, "token": token })
+
                     } else {
                         if (result) {
                             const token = jwt.sign({ userId: user._id, user_name: user.user_name }, process.env.SECRETKEY)

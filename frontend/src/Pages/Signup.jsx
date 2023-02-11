@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Box,
   Flex,
@@ -12,11 +12,13 @@ import {
   Avatar,
   AvatarGroup,
   Icon,
+  useToast,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
-import arun from '../assets/arun_png.png'
-import mitresh from '../assets/mitresh.jpg'
+import arun from "../assets/arun.png";
+import mitresh from "../assets/mitresh.jpg";
 
 const avatars = [
   {
@@ -26,26 +28,95 @@ const avatars = [
   {
     name: "Arun",
     url: arun,
-  }
- 
-
+  },
 ];
 
 export const Signup = () => {
+  const [user_name, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+  const toast = useToast();
 
+  const handleSubmit = () => {
+    if (user_name !== "" && email !== "" && password !== "") {
+      const payload = {
+     user_name,
+        email,
+        password,
+      };
 
-    const navigate = useNavigate()
+      axios.post(`https://blogapp-gp7t.onrender.com/auth/signup`, payload).then((res) => {
+        if (res.data.message === "User already exists, Please Login") {
+          console.log(res);
+          //    navigate('/login')
+          toast({
+            position: "top",
+            duration: 2000,
+            render: () => (
+              <Box
+                color="white"
+                bgGradient="linear(to-r, red.400,pink.400)"
+                fontSize={"xl"}
+                borderRadius={"10px"}
+                p={3}
+              >
+                😡😡User Exist! Please Login 👉
+              </Box>
+            ),
+          });
+            navigate("/login");
+          setUsername("");
+          setEmail("");
+          setPassword("");
+        } else if (res.data.message === "User registred successfully.") {
+          console.log(res.data);
 
-
-    const goToLogin=()=>
-    {
-        return(
-            navigate('/Login')
-        )
-
+          toast({
+            position: "top",
+            duration: 2000,
+            render: () => (
+              <Box
+                color="white"
+                bgGradient="linear(to-r, red.400,pink.400)"
+                fontSize={"xl"}
+                borderRadius={"10px"}
+                p={3}
+              >
+                😊😊 Hi connections!
+                <br />
+                😍😍 It's our pleauser
+              </Box>
+            ),
+          });
+            navigate("/login");
+          setUsername("");
+          setEmail("");
+          setPassword("");
+        }
+      });
+    } else if (user_name === "" || email === "" || password === "") {
+      return toast({
+        position: "top",
+        duration: 2000,
+        render: () => (
+          <Box
+            color="white"
+            bgGradient="linear(to-r, red.400,pink.400)"
+            fontSize={"xl"}
+            borderRadius={"10px"}
+            p={3}
+          >
+            😡😡Please Fill all the fields below
+          </Box>
+        ),
+      });
     }
+  };
 
-
+  const goToLogin = () => {
+    return navigate("/Login");
+  };
 
   return (
     <Box position={"relative"}>
@@ -53,10 +124,10 @@ export const Signup = () => {
         as={SimpleGrid}
         maxW={"7xl"}
         columns={{ base: 1, md: 2 }}
-        spacing={{ base: 10, lg: 32 }}
-        py={{ base: 10, sm: 20, lg: 32 }}
+        spacing={{ base: 8, lg: 25 }}
+        py={{ base: 6, sm: 25, lg: 27 }}
       >
-        <Stack spacing={{ base: 10, md: 20 }}>
+        <Stack spacing={{ base: 8, md: 18 }}>
           <Heading
             lineHeight={1.1}
             fontSize={{ base: "3xl", sm: "4xl", md: "5xl", lg: "6xl" }}
@@ -150,12 +221,12 @@ export const Signup = () => {
               </Text>
             </Heading>
             <Text color={"gray.500"} fontSize={{ base: "sm", sm: "md" }}>
-              We’re looking for amazing bloggers just like you! Become a part
-              of our rockstar blogging team and skyrocket your thinking!
+              We’re looking for amazing bloggers just like you! Become a part of
+              our rockstar blogging team and skyrocket your thinking!
             </Text>
           </Stack>
-          <Box as={"form"} mt={10}>
-            <Stack spacing={4}>
+          <Box as={"form"} mt={7}>
+            <Stack spacing={3}>
               <Input
                 placeholder="Enter Name"
                 bg={"gray.100"}
@@ -164,6 +235,7 @@ export const Signup = () => {
                 _placeholder={{
                   color: "gray.500",
                 }}
+                onChange={(e) => setUsername(e.target.value)}
               />
               <Input
                 placeholder="Enter your email"
@@ -173,6 +245,7 @@ export const Signup = () => {
                 _placeholder={{
                   color: "gray.500",
                 }}
+                onChange={(e) => setEmail(e.target.value)}
               />
               <Input
                 placeholder="Enter your Password"
@@ -182,8 +255,8 @@ export const Signup = () => {
                 _placeholder={{
                   color: "gray.500",
                 }}
+                onChange={(e) => setPassword(e.target.value)}
               />
-            
             </Stack>
             <Button
               fontFamily={"heading"}
@@ -195,34 +268,37 @@ export const Signup = () => {
                 bgGradient: "linear(to-r, red.400,pink.400)",
                 boxShadow: "xl",
               }}
+              onClick={handleSubmit}
             >
               Register
             </Button>
-            <Text textAlign={'center'} mt={5} color={"gray.500"} fontSize={{ base: "sm", sm: "md" }}>
+            <Text
+              textAlign={"center"}
+              mt={5}
+              color={"gray.500"}
+              fontSize={{ base: "sm", sm: "md" }}
+            >
               Already a member!
             </Text>
             <Box>
-              <Text textAlign={'center'}>
+              <Text textAlign={"center"}>
                 <Button
                   fontFamily={"heading"}
                   mt={2}
-                    bgGradient="linear(to-r, red.400,pink.400)"
-                    color={"white"}
-                    _hover={{
-                        bgGradient: "linear(to-r, red.400,pink.400)",
-                        boxShadow: "xl",
-                      }}
-                      onClick={goToLogin}
+                  bgGradient="linear(to-r, red.400,pink.400)"
+                  color={"white"}
+                  _hover={{
+                    bgGradient: "linear(to-r, red.400,pink.400)",
+                    boxShadow: "xl",
+                  }}
+                  onClick={goToLogin}
 
-                //   variant="link"
+                  //   variant="link"
                 >
                   Login
                 </Button>
               </Text>
-              </Box>
-
-
-
+            </Box>
           </Box>
           form
         </Stack>
