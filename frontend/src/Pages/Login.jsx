@@ -63,9 +63,7 @@ export const Login = () => {
                 </Box>
               ),
             }),
-            setTimeout(() => {
-              navigate("/blog");
-            }, 1000)
+              navigate("/blog")
           );
         } else {
           return toast({

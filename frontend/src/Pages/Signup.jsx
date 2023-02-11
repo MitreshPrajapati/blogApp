@@ -32,16 +32,16 @@ const avatars = [
 ];
 
 export const Signup = () => {
-  const [username, setUsername] = useState("");
+  const [user_name, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const toast = useToast();
 
   const handleSubmit = () => {
-    if (username !== "" && email !== "" && password !== "") {
+    if (user_name !== "" && email !== "" && password !== "") {
       const payload = {
-        username,
+     user_name,
         email,
         password,
       };
@@ -65,9 +65,7 @@ export const Signup = () => {
               </Box>
             ),
           });
-          setTimeout(() => {
             navigate("/login");
-          }, 1000);
           setUsername("");
           setEmail("");
           setPassword("");
@@ -91,15 +89,13 @@ export const Signup = () => {
               </Box>
             ),
           });
-          setTimeout(() => {
             navigate("/login");
-          }, 1000);
           setUsername("");
           setEmail("");
           setPassword("");
         }
       });
-    } else if (username === "" || email === "" || password === "") {
+    } else if (user_name === "" || email === "" || password === "") {
       return toast({
         position: "top",
         duration: 2000,
