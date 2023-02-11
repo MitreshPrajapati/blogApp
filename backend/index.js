@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const { Connection } = require('./Config/db');
 const cors = require('cors')
 
@@ -13,7 +14,9 @@ const { userRouter } = require('./Routes/User.route');
 
 const app = express();
 app.use(express.json());
+
 app.use(cors())
+
 require('dotenv').config();
 
 

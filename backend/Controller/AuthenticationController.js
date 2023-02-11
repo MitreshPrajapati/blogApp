@@ -9,19 +9,25 @@ const  ROUND= process.env.ROUND || 5
 const SECRETKEY = process.env.SECRETKEY || 'Jawlia'
 
 const SignupFn = async (req, res) => {
-    const { username, email, password } = req.body;
 
-    const user = await UserModel.findOne({ email });
-    if (user) {
-        res.send({ message: "User already exists, Please Login"});
-    } else {
+    const { user_name, email, password } = req.body;
 
-        // bcrypt.hash(password, Number(process.env.ROUND), async function (err, hashedPassword) {
-        bcrypt.hash(password, Number(ROUND), async function (err, hashedPassword) {
+    if (email.includes("@gmail.com") ||
+        email.includes("@ymail.com") ||
+        email.includes("@hotmail.com")) {
+        const user = await UserModel.findOne({ email });
+        if (user) {
+            res.send({ message: "User already exists, Please Login" });
+        } else {
 
-            if (err) {
-                res.send({ message: err.message })
-            }
+            bcrypt.hash(password, Number(process.env.ROUND), async function (err, hashedPassword) {
+
+   
+
+                if (err) {
+                    res.send({ message: err.message })
+                }
+
 
             const newUser = new UserModel({
                 username,
@@ -29,11 +35,16 @@ const SignupFn = async (req, res) => {
                 password: hashedPassword
             })
 
-            await newUser.save();
-            res.send({message:"User registred successfully."});
 
-        });
+                await newUser.save();
+                res.send({ message: "User registred successfully." });
+
+            });
+        }
+    } else {
+       res.send({message:"Incorrect email type."})
     }
+
 }
 
 
@@ -41,7 +52,12 @@ const LoginFn = async (req, res) => {
 
     try {
         const { email, password } = req.body;
-        const user = await UserModel.findOne({ email });
+        if (email.includes("@gmail.com") ||
+            email.includes("@ymail.com") ||
+            email.includes("@hotmail.com")
+        ) {
+            const user = await UserModel.findOne({ email });
+
 
 
         if (user) {
@@ -52,14 +68,23 @@ const LoginFn = async (req, res) => {
                     if (result) {
                         const token = jwt.sign({ userId: user._id }, SECRETKEY)
                         res.send({ user, "token": token })
+
                     } else {
-                        res.send({ message: " Wrong credintials" })
+                        if (result) {
+                            const token = jwt.sign({ userId: user._id, user_name: user.user_name }, process.env.SECRETKEY)
+                            res.send({ user, "token": token })
+                        } else {
+                            res.send({ message: " Wrong credintials" })
+                        }
                     }
-                }
-            });
+                });
+            } else {
+                res.send({ message: "User doesn't exists, Please Signup/ Register first." })
+            }
         } else {
-            res.send({ message: "User doesn't exists, Please Signup/ Register first." })
+            res.send({ message: "Incorrect email type." })
         }
+
 
     } catch (error) {
         res.send({ message: error.message })
@@ -67,6 +92,7 @@ const LoginFn = async (req, res) => {
 }
 
 
-module.exports = { 
+module.exports = {
     SignupFn,
-    LoginFn }
+    LoginFn
+}
