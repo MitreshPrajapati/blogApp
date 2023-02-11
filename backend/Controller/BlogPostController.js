@@ -1,13 +1,27 @@
 const { BlogPost } = require("../Models/Blog.model");
 
 // current user all  postes 
+
+// get specific Post by post id
+const getPostById = async(req, res)=>{
+    const {id} = req.params;
+    if (id) {
+        const blogPost = await BlogPost
+            .findById(id);
+        res.send(blogPost)
+    } else {
+        res.send("Post doesn't exists.")
+    }
+}
+
+// getAllPosts
 const getPosts = async (req, res) => {
     const { userId } = req.body;
     try {
-        if (userId) {
-            const posts = await BlogPost.find({ userId });
+        
+            const posts = await BlogPost.find().sort({ createdAt: 'desc'});
             res.send(posts);
-        }
+        
     } catch (error) {
         res.send({ message: err })
     }
@@ -15,8 +29,9 @@ const getPosts = async (req, res) => {
 
 // create new post 
 const createPost = async (req, res) => {
-    const { userId } = req.body;
-
+    const { userId, user_name } = req.body;
+    console.log(req.body);
+    // req.body.images = "https://www.netscribes.com/wp-content/uploads/2019/06/Technology-Watch.jpg";
     const new_Post = new BlogPost(req.body)
     await new_Post.save();
     res.send("Posted successfully.")
@@ -54,6 +69,7 @@ const updatePost = async (req, res) => {
 
 
 module.exports = {
+    getPostById,
     getPosts,
     createPost,
     deletePost,

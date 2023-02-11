@@ -5,10 +5,14 @@ const blogSchema = mongoose.Schema({
         type: String,
         required: true,
     },
+    username: {
+        type: String,
+        required: true
+    },
     title: String,
     desc: String,
-    images: []
-}, { timeStamp: true })
+    images: String
+}, { timestamps: true })
 
 
 const BlogPost = mongoose.model('post', blogSchema);
