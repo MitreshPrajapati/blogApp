@@ -35,6 +35,7 @@ import { BiHomeAlt, BiMessageAlt } from "react-icons/bi";
 export const BlogPage = () => {
   const [data, setData] = useState([]);
   const { colorMode } = useColorMode();
+  console.log(colorMode)
 
   const getBlogs = () => {
    return axios
@@ -84,11 +85,11 @@ export const BlogPage = () => {
 
 
   return (
-    <Container overflow={"hidden"} maxW="100%">
+    <Container overflow={"hidden"}  maxW="100%">
       {data.length === 0 ? (
         <Center mt="6rem">
           <Box>
-            <Text>👉Your page is getting ready Please wait!!</Text>
+            <Text>👉Loading </Text>
           </Box>
           <br />
 
@@ -106,18 +107,18 @@ export const BlogPage = () => {
         data.length > 0 &&
         data?.map((blogs) => (
           <Center marginTop={5}>
-            <Card maxW="md">
+            <Card border='1px solid lightgray' maxW="md">
               <CardHeader>
                 <Flex spacing="4">
                   <Flex flex="1" gap="4" alignItems="center" flexWrap="wrap">
                     <Avatar
-                      name="Segun Adebayo"
-                      src="https://bit.ly/sage-adebayo"
+                      name={blogs.username}
+                      src="https://bit.ly/sage-adebay"
                     />
 
                     <Box>
-                      <Heading size="sm">Segun Adebayo</Heading>
-                      <Text color={"gray.600"} fontSize={"xs"}>
+                      <Heading size="sm" _hover={{textDecoration:"underline", cursor:'pointer'}}>{blogs.username}</Heading>
+                      <Text color={ colorMode==='light' ? 'black'  : "white"} fontSize={"xs"}>
                         Posted: {blogs.createdAt.slice(0, 10)}
                       </Text>
                     </Box>
