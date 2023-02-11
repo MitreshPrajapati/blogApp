@@ -4,9 +4,7 @@ import {
   Center,
   Heading,
   Text,
-  Stack,
   Avatar,
-  useColorModeValue,
   Image,
   useColorMode,
   Button,
@@ -21,16 +19,16 @@ import {
   IconButton,
   CardBody,
   CardFooter,
-  Icon,
+  
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Styles from "./pages.module.css";
-import { AddIcon, ChevronDownIcon, DeleteIcon, EditIcon, ExternalLinkIcon, HamburgerIcon, RepeatIcon } from "@chakra-ui/icons";
+import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { FiShare } from "react-icons/fi";
-import { AiOutlineLike, AiOutlinePoweroff } from "react-icons/ai";
-import { BiHomeAlt, BiMessageAlt } from "react-icons/bi";
+import { AiOutlineLike,  } from "react-icons/ai";
+import { BiMessageAlt } from "react-icons/bi";
 
 export const BlogPage = () => {
   const [data, setData] = useState([]);
