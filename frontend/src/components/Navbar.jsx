@@ -29,6 +29,10 @@ export const Navbar = () => {
     )
   };
 
+
+  let currentUser = JSON.parse(localStorage.getItem('CurrentUser'))
+  // console.log('currentUser', currentUser)
+
   return (
     <>
       <Box
@@ -68,7 +72,8 @@ export const Navbar = () => {
                 >
                   <Avatar
                     size={"sm"}
-                    src={"https://avatars.dicebear.com/api/male/username.svg"}
+                    name={currentUser.user_name}
+                    // src={"https://avatars.dicebear.com/api/male/username.svg"}
                   />
                 </MenuButton>
                 <MenuList alignItems={"center"}>
@@ -76,17 +81,17 @@ export const Navbar = () => {
                   <Center>
                     <Avatar
                       size={"2xl"}
-                      src={"https://avatars.dicebear.com/api/male/username.svg"}
+                      name={currentUser.user_name}
+                      // src={"https://avatars.dicebear.com/api/male/username.svg"}
                     />
                   </Center>
                   <br />
                   <Center>
-                    <p>Username</p>
+                    <p>{currentUser.user_name}</p>
                   </Center>
                   <br />
                   <MenuDivider />
-                  <MenuItem>Your Servers</MenuItem>
-                  <MenuItem>Account Settings</MenuItem>
+                  <MenuItem onClick={() => navigate("/profile")}>Your Profile</MenuItem>
                   <MenuItem onClick={ handleLogout}>Logout</MenuItem>
                 </MenuList>
               </Menu>

@@ -1,0 +1,1 @@
+export const URL = 'https://blogapp-am.up.railway.app/'

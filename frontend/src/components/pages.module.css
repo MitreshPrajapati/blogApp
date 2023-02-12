@@ -4,17 +4,12 @@
    overflow: hidden;
    transition: transform 5s;
 }
-/* .blog_desc{
+.blog_desc{
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;  
     overflow: hidden;
     text-overflow: ellipsis;
 
-} */
-
-.blog_desc:hover{
-    /* height: 100px; */
-   
-    max-height: fit-content;
 }
+
