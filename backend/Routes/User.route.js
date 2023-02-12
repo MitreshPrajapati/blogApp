@@ -5,6 +5,7 @@ const { authentication } = require('../Middlewares/authentication');
 const { UserModel } = require('../Models/User.model');
 
 
+
 const userRouter = Router();
 
 userRouter.get('/', async (req, res) => {

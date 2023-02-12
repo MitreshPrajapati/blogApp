@@ -13,6 +13,7 @@ import {
 import React, { useState } from "react";
 import { Navbar } from "../components/Navbar";
 import axios from "axios";
+import { URL } from "../api";
 
 export const WriteBlog = () => {
   const [title, setTitle] = useState("");
@@ -25,12 +26,13 @@ export const WriteBlog = () => {
   const handleBlog = () => {
     if (images!=="" && title !== "" && desc !== "") {
       const payload = {
-        images,
+        images: images ,
         title,
         desc,
       };
       console.log(payload);
-      axios.post(`https://blogapp-gp7t.onrender.com/blog/create/post`,
+      // axios.post(`https://blogapp-gp7t.onrender.com/blog/create/post`,
+      axios.post(`${URL}blog/create/post`,
           JSON.stringify(payload),
           {
             headers: {

@@ -19,6 +19,7 @@ import axios from "axios";
 
 import arun from "../assets/arun.png";
 import mitresh from "../assets/mitresh.jpg";
+import { URL } from "../api";
 
 const avatars = [
   {
@@ -46,7 +47,8 @@ export const Signup = () => {
         password,
       };
 
-      axios.post(`https://blogapp-gp7t.onrender.com/auth/signup`, payload).then((res) => {
+      // axios.post(`https://blogapp-gp7t.onrender.com/auth/signup`, payload).then((res) => {
+      axios.post(`${URL}auth/signup`, payload).then((res) => {
         if (res.data.message === "User already exists, Please Login") {
           console.log(res);
           //    navigate('/login')
@@ -56,12 +58,12 @@ export const Signup = () => {
             render: () => (
               <Box
                 color="white"
-                bgGradient="linear(to-r, red.400,pink.400)"
+                // bgGradient="linear(to-r, red.400,pink.400)"
                 fontSize={"xl"}
                 borderRadius={"10px"}
                 p={3}
               >
-                😡😡User Exist! Please Login 👉
+                😡User Exist! Please Login
               </Box>
             ),
           });
@@ -83,9 +85,9 @@ export const Signup = () => {
                 borderRadius={"10px"}
                 p={3}
               >
-                😊😊 Hi connections!
+                😊 Hi connections!
                 <br />
-                😍😍 It's our pleauser
+                😍 It's our pleauser
               </Box>
             ),
           });

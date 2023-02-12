@@ -18,6 +18,7 @@ import { useNavigate } from "react-router-dom";
 import arun from "../assets/arun_png.png";
 import mitresh from "../assets/mitresh.jpg";
 import axios from "axios";
+import { URL } from "../api";
 
 const avatars = [
   {
@@ -43,11 +44,15 @@ export const Login = () => {
         password,
       };
 
-      axios.post(`https://blogapp-gp7t.onrender.com/auth/login`, payload).then((res) => {
+      // axios.post(`https://blogapp-gp7t.onrender.com/auth/login`, payload).then((res) => {
+      axios.post(`${URL}auth/login`, payload).then((res) => {
         if (res.data.token) {
           console.log(res.data);
           localStorage.setItem("blogToken", res.data.token);
+          localStorage.setItem('CurrentUser', JSON.stringify(res.data.user));
+          
           return (
+            console.log(res.data),
             toast({
               position: "top",
               duration: 2000,

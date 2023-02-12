@@ -7,12 +7,15 @@ import {
   Text,
   Button,
   Icon,
+  useColorMode,
+  Box,
 } from "@chakra-ui/react";
 import {  useNavigate } from "react-router-dom";
+import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 
 export const Home = () => {
     const navigate = useNavigate()
-
+    const { colorMode, toggleColorMode } = useColorMode();
 
     const goToSignup=()=>
     {
@@ -37,6 +40,14 @@ export const Home = () => {
 
   return (
     <Container maxW={"5xl"}>
+       <Flex p={2} flexDirection={'row-reverse'}>
+       <Box>
+       <Button  size='sm' padding={1} onClick={toggleColorMode}>
+                {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
+              </Button>
+       </Box>
+       </Flex>
+    
       <Stack
         textAlign={"center"}
         align={"center"}
