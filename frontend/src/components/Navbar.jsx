@@ -65,6 +65,8 @@ export const Navbar = () => {
                 {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
               </Button>
 
+              
+
               <Menu>
                 <MenuButton
                   as={Button}
