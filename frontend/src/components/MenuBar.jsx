@@ -33,4 +33,3 @@ const navigate = useNavigate()
 }
 
 
-// _hover={{border:'1px solid gray'}}

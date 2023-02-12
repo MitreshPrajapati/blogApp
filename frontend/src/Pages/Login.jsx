@@ -36,6 +36,7 @@ export const Login = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const toast = useToast();
+  const [show , setShow] = useState(false)
 
   const handleSubmit = () => {
     if (email !== "" && password !== "") {
@@ -52,7 +53,7 @@ export const Login = () => {
           localStorage.setItem('CurrentUser', JSON.stringify(res.data.user));
           
           return (
-            console.log(res.data),
+            // console.log(res.data),
             toast({
               position: "top",
               duration: 2000,
@@ -234,6 +235,7 @@ export const Login = () => {
               <Input
                 placeholder="Enter your Password"
                 bg={"gray.100"}
+                type={show ? 'text' : 'password' }
                 border={0}
                 color={"gray.500"}
                 _placeholder={{
@@ -244,6 +246,7 @@ export const Login = () => {
               {/* <Button  fontFamily={"heading"} bg={"gray.200"} color={"gray.800"}>
                 Signup
               </Button> */}
+               <Button variant={'link'} size='xs' onClick={()=>setShow(!show)}>{show ? 'Hide Password' : 'Show Password'}</Button>
             </Stack>
             <Button
               fontFamily={"heading"}

@@ -38,6 +38,7 @@ export const Signup = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const toast = useToast();
+  const [show , setShow] = useState(false)
 
   const handleSubmit = () => {
     if (user_name !== "" && email !== "" && password !== "") {
@@ -50,7 +51,7 @@ export const Signup = () => {
       // axios.post(`https://blogapp-gp7t.onrender.com/auth/signup`, payload).then((res) => {
       axios.post(`${URL}auth/signup`, payload).then((res) => {
         if (res.data.message === "User already exists, Please Login") {
-          console.log(res);
+          // console.log(res);
           //    navigate('/login')
           toast({
             position: "top",
@@ -252,6 +253,7 @@ export const Signup = () => {
               <Input
                 placeholder="Enter your Password"
                 bg={"gray.100"}
+                type={show ? 'text' : 'password' }
                 border={0}
                 color={"gray.500"}
                 _placeholder={{
@@ -259,6 +261,7 @@ export const Signup = () => {
                 }}
                 onChange={(e) => setPassword(e.target.value)}
               />
+              <Button variant={'link'} size='xs' onClick={()=>setShow(!show)}>{show ? 'Hide Password' : 'Show Password'}</Button>
             </Stack>
             <Button
               fontFamily={"heading"}

@@ -59,7 +59,7 @@ export const BlogEdit = () => {
         title : title || data.title,
         desc : desc || data.desc
       };
-      console.log(payload);
+      // console.log(payload);
       // axios.patch(`https://blogapp-gp7t.onrender.com/blog/update/${id}`,
       axios.patch(`${URL}blog/update/${id}`,
           JSON.stringify(payload),

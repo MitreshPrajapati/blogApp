@@ -165,9 +165,9 @@ export const BlogPage = () => {
                   )}
                 </Flex>
               </CardHeader>
-              <Image height={"220px"} src={blogs.images} alt="Chakra UI" />
+              <Image height={"220px"} onClick={()=> navigate(`/singleblog/${blogs._id}`)}  cursor='pointer' src={blogs.images} alt="Chakra UI" />
               <CardBody>
-                <Text fontSize={'xl'} mb={2}  color={colorMode === "light" ? "black" : "red"} _hover={{textDecoration:"underline"}} fontWeight='700'>{blogs.title}</Text>
+                <Text fontSize={'xl'} className={Styles.blog_title} mb={2} onClick={()=> navigate(`/singleblog/${blogs._id}`)}  color={colorMode === "light" ? "black" : "red"} _hover={{textDecoration:"underline"}} cursor='pointer' fontWeight='700'>{blogs.title}</Text>
                 <Text className={Styles.blog_desc}>{blogs.desc}</Text>
               </CardBody>
 

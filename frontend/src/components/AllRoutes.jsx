@@ -6,6 +6,7 @@ import { Home } from '../Pages/Home'
 import { Login } from '../Pages/Login'
 import { Profile } from '../Pages/Profile'
 import { Signup } from '../Pages/Signup'
+import { SingleBlog } from '../Pages/SingleBlog'
 import { WriteBlog } from '../Pages/WriteBlog'
 
 export const AllRoutes = () => {
@@ -18,6 +19,7 @@ export const AllRoutes = () => {
         <Route path='/blog/:id' element={<BlogEdit/>}/>
         <Route path='/writeblog' element={<WriteBlog/>}/>
         <Route path='/profile' element={<Profile/>}/>
+        <Route path='/singleBlog/:id' element={<SingleBlog/>}/>
     </Routes>
   )
 }

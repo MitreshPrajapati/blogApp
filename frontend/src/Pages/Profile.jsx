@@ -13,12 +13,15 @@ import {
   SimpleGrid,
   GridItem,
   Divider,
+  useColorMode,
+  Spinner,
 } from "@chakra-ui/react";
 import { URL } from "../api";
 import axios  from "axios";
 import { useEffect, useState } from "react";
 import Styles from '../components/pages.module.css'
 import { Navbar } from "../components/Navbar";
+import { useNavigate } from "react-router-dom";
 
 
 export const Profile = () => {
@@ -26,7 +29,9 @@ export const Profile = () => {
     let CurrentUser = JSON.parse(localStorage.getItem('CurrentUser'))
     const [user, setUser] = useState({})
     const [data, setData] = useState([])
-    console.log(CurrentUser._id)
+    // console.log(CurrentUser._id)
+    const {colorMode} = useColorMode()
+    const navigate = useNavigate()
 
 
 
@@ -77,7 +82,7 @@ export const Profile = () => {
 
    
 
-      console.log(data)
+      // console.log(data)
 
 
   return (
@@ -160,32 +165,38 @@ export const Profile = () => {
     <Divider/>
     <br />
     <Box>
-        <Text textAlign={'center'} fontSize={'xl'}>My Blogs</Text>
+        <Text textAlign={'center'} fontSize={'3xl'} fontFamily='cursive' fontWeight='700'>My Blogs</Text>
     </Box>
     <br/>
     <Container boxShadow='rgba(0, 0, 0, 0.16) 0px 1px 4px' maxW={['100%','80%','80%']}>
         <Box>
-            <SimpleGrid p={3} columns={[1,2,3]} spacing={3} gap={5}>
-                {
-                    data.length>0 ? (data.map((blogs)=>
-                    {
-                        return(
-                            <GridItem borderRadius='5px' boxShadow='rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px'>
-                                <Box p={5} margin={'auto'}>
-                                    <Image src ={blogs.images}  borderRadius='5px' />
-                                    <Text fontSize={['md', 'lg']} mt={4} textAlign='center' fontWeight="700">{blogs.title}</Text>
-                                    <Text className={Styles.blog_desc}>{blogs.desc}</Text>
+          {
+            data.length>0 ? ( 
+                <SimpleGrid p={3} columns={[1,2,3]} spacing={3} gap={5}>
+              {
+                  data.length>0 && (data.map((blogs)=>
+                  {
+                      return(
+                          <GridItem cursor={'pointer'} key={blogs._id} onClick={()=> navigate(`/singleblog/${blogs._id}`)} borderRadius='5px' boxShadow='rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px'>
+                              <Box p={5} margin={'auto'}>
+                                  <Image src ={blogs.images}  borderRadius='5px' />
+                                  <Text color={colorMode === "light" ? "black" : "red"} fontSize={['md', 'lg']} mt={4}  className={Styles.blog_title} fontWeight="700">{blogs.title}</Text>
+                                  <Text className={Styles.blog_desc} mt="5px">{blogs.desc}</Text>
 
-                                </Box>
-                            </GridItem>
-                        )
+                              </Box>
+                          </GridItem>
+                      )
 
-                    }))
+                  }))
 
-                    :  'else'
-                }
-            </SimpleGrid>
-            <br />
+                  
+              }
+          </SimpleGrid>
+            ) : <Center>
+              <Spinner/>
+            </Center>
+            
+          }
 
         </Box>
     </Container>
