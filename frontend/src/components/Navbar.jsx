@@ -78,21 +78,27 @@ export const Navbar = () => {
                   <Avatar
                     size={"sm"}
                     name={currentUser.user_name}
-                    // src={"https://avatars.dicebear.com/api/male/username.svg"}
+                    src={"https://avatars.dicebear.com/api/male/username.svg"}
                   />
                 </MenuButton>
                 <MenuList alignItems={"center"}>
                   <br />
                   <Center>
                     <Avatar
-                      size={"2xl"}
+                      size={"xl"}
                       name={currentUser.user_name}
-                      // src={"https://avatars.dicebear.com/api/male/username.svg"}
+                      src={"https://avatars.dicebear.com/api/male/username.svg"}
                     />
                   </Center>
                   <br />
                   <Center>
-                    <p>{currentUser.user_name}</p>
+                    <Text>{currentUser.user_name}</Text>
+                
+                   
+                  </Center>
+                  <Center>
+                    <Text>{currentUser.email}</Text>
+                
                   </Center>
                   <br />
                   <MenuDivider />

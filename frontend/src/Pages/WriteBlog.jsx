@@ -30,7 +30,7 @@ export const WriteBlog = () => {
         title,
         desc,
       };
-      console.log(payload);
+      // console.log(payload);
       // axios.post(`https://blogapp-gp7t.onrender.com/blog/create/post`,
       axios.post(`${URL}blog/create/post`,
           JSON.stringify(payload),
