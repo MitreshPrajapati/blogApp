@@ -2,7 +2,6 @@
     min-height: 70px;
    max-height: 70px;
    overflow: hidden;
-   transition: transform 5s;
 }
 .blog_desc{
     display: -webkit-box;

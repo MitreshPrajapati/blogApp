@@ -1,7 +1,6 @@
 const express = require('express');
 const cors = require('cors');
 const { Connection } = require('./Config/db');
-const cors = require('cors')
 
 //middlewares
 const { authentication } = require('./Middlewares/authentication');

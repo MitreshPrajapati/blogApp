@@ -55,41 +55,55 @@ const LoginFn = async (req, res) => {
         if (email.includes("@gmail.com") ||
             email.includes("@ymail.com") ||
             email.includes("@hotmail.com")
-        ) {
-            const user = await UserModel.findOne({ email });
+        ) 
+        {
+            const user = await UserModel.findOne({ email })
+            
 
 
 
-        if (user) {
-            bcrypt.compare(password, user.password, function (err, result) {
-                if (err) {
+        if (user)
+         {
+            bcrypt.compare(password, user.password, function(err, result) {
+                if (err)
+                 {
                     res.send({ message: err })
-                } else {
-                    if (result) {
+                } 
+                else
+                 {
+                    if (result)
+                     {
                         const token = jwt.sign({ userId: user._id }, SECRETKEY)
                         res.send({ user, "token": token })
 
-                    } else {
-                        if (result) {
+                    }
+                     else
+                      {
+                        if (result) 
+                        {
                             const token = jwt.sign({ userId: user._id, user_name: user.user_name }, process.env.SECRETKEY)
                             res.send({ user, "token": token })
-                        } else {
+                        } 
+                        else
+                         {
                             res.send({ message: " Wrong credintials" })
                         }
                     }
-                });
+                })
             } else {
                 res.send({ message: "User doesn't exists, Please Signup/ Register first." })
             }
         } else {
             res.send({ message: "Incorrect email type." })
         }
+        
 
 
     } catch (error) {
         res.send({ message: error.message })
     }
 }
+
 
 
 module.exports = {
