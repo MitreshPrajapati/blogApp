@@ -14,9 +14,12 @@ import {
   useColorMode,
   Center,
   Text,
+  Image,
 } from "@chakra-ui/react";
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import { MenuBar } from "./MenuBar";
+import lightImage from '../assets/2.png'
+import darkImage from '../assets/1.png'
 
 export const Navbar = () => {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -51,9 +54,9 @@ export const Navbar = () => {
             fontWeight="bold"
             fontFamily={"cursive"}
           >
-            <Text cursor={"pointer"} onClick={() => navigate("/blog")}>
-              Blog App
-            </Text>
+            <Box  cursor={"pointer"} onClick={() => navigate("/blog")}>
+             <Image  boxSize='110px' w='130px'   src={colorMode === 'dark' ? lightImage : darkImage} />
+            </Box>
           </Box>
 
           <Flex alignItems={"center"}>
