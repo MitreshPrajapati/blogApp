@@ -19,22 +19,30 @@ import Styles from '../components/pages.module.css'
 export const WriteBlog = () => {
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
-  const [images, setImageUrl]= useState('')
+  const [images, setImageUrl]= useState({})
   let [value, setValue] = useState(0);
   const toast = useToast();
   let count = 0;
 
-  const handleBlog = () => {
-    if (images!=="" && title !== "" && desc !== "") {
-      const payload = {
-        images: images ,
-        title,
-        desc,
-      };
-      // console.log(payload);
-      // axios.post(`https://blogapp-gp7t.onrender.com/blog/create/post`,
+  const handleBlog = async (e) => {
+    if (images!=={} && title !== "" && desc !== "") {
+      // e.preventDefault()
+      console.log(images)
+      const formData = new FormData()
+      formData.append('images', images)
+      formData.append('title', title)
+      formData.append('desc', desc)
+      console.log(formData)
+
+      // const payload = {
+      //   images: images ,
+      //   title,
+      //   desc,
+      // };
+      // // console.log(payload);
+      // // axios.post(`https://blogapp-gp7t.onrender.com/blog/create/post`,
       axios.post(`${URL}blog/create/post`,
-          JSON.stringify(payload),
+          JSON.stringify(formData),
           {
             headers: {
               "Content-Type": "application/json",
@@ -62,7 +70,7 @@ export const WriteBlog = () => {
               </Box>
             )
           })
-          setImageUrl('')
+          setImageUrl({})
           setValue(0);
           setDesc("");
           setTitle("");
@@ -88,6 +96,8 @@ export const WriteBlog = () => {
       });
     }
   };
+
+  console.log(images)
 
   let handleInputChange = (e) => {
     let inputValue = e.target.value;
@@ -122,12 +132,13 @@ export const WriteBlog = () => {
         maxW={['90%', '60%','50%','40%']}
         mt={"2rem"}
       >
-        <FormControl>
+        <FormControl encType="multipart/form-data">
         
           <Input
-            type="text"
-            value={images}
-            onChange={(e) => setImageUrl(e.target.value)}
+            type="file"
+            // value={images}
+            accept="jpeg/png"
+            onChange={(e) => setImageUrl(e.target.files[0])}
             placeholder="ImageUrl.."
           />
           <br />
