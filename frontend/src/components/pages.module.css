@@ -20,3 +20,34 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+
+
+
+label.label Input[type="file"] {
+    position:absolute;
+    top: -1000px;
+    width: 100px;
+  }
+  .label {
+    cursor: pointer;
+    /* border: 1px solid #cccccc; */
+    border-radius: 5px;
+    padding: 9px 19px;
+    background: #EDF2F7;
+    display: inline-block;
+    color: #718096;
+    /* width: 100%; */
+  }
+  /* .label:hover {
+    background: #5cbd95;
+  } */
+  /* .label:active {
+    background: #f6f9f7;
+  }
+  .label:invalid + span {
+    color: #000000;
+  }
+  .label:valid + span {
+    color: #ffffff;
+  } */
