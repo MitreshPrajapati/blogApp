@@ -14,6 +14,7 @@ import React, { useState } from "react";
 import { Navbar } from "../components/Navbar";
 import axios from "axios";
 import { URL } from "../api";
+import Styles from '../components/pages.module.css'
 
 export const WriteBlog = () => {
   const [title, setTitle] = useState("");
@@ -122,7 +123,7 @@ export const WriteBlog = () => {
         mt={"2rem"}
       >
         <FormControl>
-          <FormLabel>Image Url</FormLabel>
+        
           <Input
             type="text"
             value={images}

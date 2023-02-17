@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Flex,
@@ -13,13 +13,15 @@ import {
   AvatarGroup,
   Icon,
   useToast,
+  FormControl,
 } from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom";
+import { Form, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 import arun from "../assets/arun.png";
 import mitresh from "../assets/mitresh.jpg";
 import { URL } from "../api";
+import Styles from "../components/pages.module.css";
 
 const avatars = [
   {
@@ -38,16 +40,22 @@ export const Signup = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const toast = useToast();
-  const [show , setShow] = useState(false)
+  const [show, setShow] = useState(false);
+  const [profilePic, setProfilePic] = useState({})
+  const [profileUrl , setProfileUrl]= useState(false)
+  const [loading, setLoading] = useState(false)
+
 
   const handleSubmit = () => {
-    if (user_name !== "" && email !== "" && password !== "") {
+    if (user_name !== "" && email !== "" && password !== "" && profileUrl!=='') {
       const payload = {
-     user_name,
+        user_name,
         email,
         password,
-      };
+      avatar :  profileUrl
 
+      };
+      setLoading(false)
       // axios.post(`https://blogapp-gp7t.onrender.com/auth/signup`, payload).then((res) => {
       axios.post(`${URL}auth/signup`, payload).then((res) => {
         if (res.data.message === "User already exists, Please Login") {
@@ -68,12 +76,14 @@ export const Signup = () => {
               </Box>
             ),
           });
-            navigate("/login");
+          navigate("/login");
           setUsername("");
           setEmail("");
-          setPassword("");
+          setPassword("")
+
         } else if (res.data.message === "User registred successfully.") {
           console.log(res.data);
+          setLoading(true)
 
           toast({
             position: "top",
@@ -92,7 +102,7 @@ export const Signup = () => {
               </Box>
             ),
           });
-            navigate("/login");
+          navigate("/login");
           setUsername("");
           setEmail("");
           setPassword("");
@@ -120,6 +130,57 @@ export const Signup = () => {
   const goToLogin = () => {
     return navigate("/Login");
   };
+
+  
+  const getImage = async () => { 
+    if(profilePic) {
+      const data = new FormData({});
+      data.append("image", profilePic.name);
+      // data.append("image", "bc aa ja");
+      // data.append("image", profilePic);
+      
+      console.log(data)
+      console.log(profilePic.name)
+        }
+    }
+   
+
+
+
+ const handleProfilePic= async(e)=>
+  {
+    e.preventDefault()
+    // let payload = {
+    //   profilePic
+    // }
+    // console.log(payload)
+    console.log(profilePic)
+    let formData = new FormData()
+   await formData.append('image', profilePic)
+    console.log(formData)
+
+
+
+    axios.post(`${URL}profileUrl`, formData)
+    .then(res=>
+      {
+        console.log(res.data.data[0].url)
+        setProfileUrl(res.data.data[0].url)
+
+      })
+      .catch(err=>console.log(err))
+   
+    
+
+  }
+
+
+// console.log(profileUrl)
+
+
+
+
+
 
   return (
     <Box position={"relative"}>
@@ -228,8 +289,34 @@ export const Signup = () => {
               our rockstar blogging team and skyrocket your thinking!
             </Text>
           </Stack>
-          <Box as={"form"} mt={7}>
+          <Box  mt={7}>
             <Stack spacing={3}>
+            <form   encType="multipart/form-data">
+             {/* <Flex columnGap={2}> */}
+            <label  className={Styles.label}>
+                <Input
+                onChange={(e)=>setProfilePic(e.target.files[0])}
+                // value = {profilePic}
+                  type="file"
+                  color={"gray.500"}
+                  accept="png/jpeg"
+                  required
+                
+                />
+                <span >  Choose Profile pic</span>
+              </label>
+              <Button 
+             
+              bgGradient="linear(to-r, red.400,pink.400)"
+              color={"white"}
+              onClick={handleProfilePic}
+              _hover={{
+                bgGradient: "linear(to-r, red.400,pink.400)",
+                boxShadow: "xl",
+              }} >Upload</Button>
+             {/* </Flex> */}
+            </form>
+          
               <Input
                 placeholder="Enter Name"
                 bg={"gray.100"}
@@ -253,7 +340,7 @@ export const Signup = () => {
               <Input
                 placeholder="Enter your Password"
                 bg={"gray.100"}
-                type={show ? 'text' : 'password' }
+                type={show ? "text" : "password"}
                 border={0}
                 color={"gray.500"}
                 _placeholder={{
@@ -261,10 +348,20 @@ export const Signup = () => {
                 }}
                 onChange={(e) => setPassword(e.target.value)}
               />
-              <Button variant={'link'} size='xs' onClick={()=>setShow(!show)}>{show ? 'Hide Password' : 'Show Password'}</Button>
+              <Button
+                variant={"link"}
+                size="xs"
+                w="half"
+                onClick={() => setShow(!show)}
+              >
+                {show ? "Hide Password" : "Show Password"}
+              </Button>
             </Stack>
             <Button
+            isDisabled={profileUrl ? false : true}
               fontFamily={"heading"}
+              isLoading ={loading ? true : false}
+            loadingText='Submitting'
               mt={8}
               w={"full"}
               bgGradient="linear(to-r, red.400,pink.400)"
