@@ -41,26 +41,26 @@ export const Signup = () => {
   const navigate = useNavigate();
   const toast = useToast();
   const [show, setShow] = useState(false);
-  const [profilePic, setProfilePic] = useState({})
-  const [profileUrl , setProfileUrl]= useState(false)
-  const [loading, setLoading] = useState(false)
-
+  const [profilePic, setProfilePic] = useState({});
+  const [profileUrl, setProfileUrl] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = () => {
-    if (user_name !== "" && email !== "" && password !== "" && profileUrl!=='') {
+    if (
+      user_name !== "" &&
+      email !== "" &&
+      password !== "" &&
+      profileUrl !== ""
+    ) {
       const payload = {
         user_name,
         email,
         password,
-      avatar :  profileUrl
-
+        avatar: profileUrl,
       };
-      setLoading(false)
-      // axios.post(`https://blogapp-gp7t.onrender.com/auth/signup`, payload).then((res) => {
+      setLoading(false);
       axios.post(`${URL}auth/signup`, payload).then((res) => {
         if (res.data.message === "User already exists, Please Login") {
-          // console.log(res);
-          //    navigate('/login')
           toast({
             position: "top",
             duration: 2000,
@@ -79,11 +79,10 @@ export const Signup = () => {
           navigate("/login");
           setUsername("");
           setEmail("");
-          setPassword("")
-
+          setPassword("");
         } else if (res.data.message === "User registred successfully.") {
           console.log(res.data);
-          setLoading(true)
+          setLoading(true);
 
           toast({
             position: "top",
@@ -131,56 +130,24 @@ export const Signup = () => {
     return navigate("/Login");
   };
 
-  
-  const getImage = async () => { 
-    if(profilePic) {
-      const data = new FormData({});
-      data.append("image", profilePic.name);
-      // data.append("image", "bc aa ja");
-      // data.append("image", profilePic);
-      
-      console.log(data)
-      console.log(profilePic.name)
-        }
-    }
-   
+  const handleProfilePic = async (e) => {
+    e.preventDefault();
 
+    console.log(profilePic);
+    let formData = new FormData();
+    await formData.append("image", profilePic);
+    console.log(formData);
 
-
- const handleProfilePic= async(e)=>
-  {
-    e.preventDefault()
-    // let payload = {
-    //   profilePic
-    // }
-    // console.log(payload)
-    console.log(profilePic)
-    let formData = new FormData()
-   await formData.append('image', profilePic)
-    console.log(formData)
-
-
-
-    axios.post(`${URL}profileUrl`, formData)
-    .then(res=>
-      {
-        console.log(res.data.data[0].url)
-        setProfileUrl(res.data.data[0].url)
-
+    axios
+      .post(`${URL}profileUrl`, formData)
+      .then((res) => {
+        console.log(res.data.data[0].url);
+        setProfileUrl(res.data.data[0].url);
       })
-      .catch(err=>console.log(err))
-   
-    
+      .catch((err) => console.log(err));
+  };
 
-  }
-
-
-// console.log(profileUrl)
-
-
-
-
-
+  // console.log(profileUrl)
 
   return (
     <Box position={"relative"}>
@@ -289,34 +256,35 @@ export const Signup = () => {
               our rockstar blogging team and skyrocket your thinking!
             </Text>
           </Stack>
-          <Box  mt={7}>
+          <Box mt={7}>
             <Stack spacing={3}>
-            <form   encType="multipart/form-data">
-             {/* <Flex columnGap={2}> */}
-            <label  className={Styles.label}>
-                <Input
-                onChange={(e)=>setProfilePic(e.target.files[0])}
-                // value = {profilePic}
-                  type="file"
-                  color={"gray.500"}
-                  accept="png/jpeg"
-                  required
-                
-                />
-                <span >  Choose Profile pic</span>
-              </label>
-              <Button 
-             
-              bgGradient="linear(to-r, red.400,pink.400)"
-              color={"white"}
-              onClick={handleProfilePic}
-              _hover={{
-                bgGradient: "linear(to-r, red.400,pink.400)",
-                boxShadow: "xl",
-              }} >Upload</Button>
-             {/* </Flex> */}
-            </form>
-          
+              <form encType="multipart/form-data">
+                {/* <Flex columnGap={2}> */}
+                <label className={Styles.label}>
+                  <Input
+                    onChange={(e) => setProfilePic(e.target.files[0])}
+                    // value = {profilePic}
+                    type="file"
+                    color={"gray.500"}
+                    accept="png/jpeg"
+                    required
+                  />
+                  <span> Choose Profile pic</span>
+                </label>
+                <Button
+                  bgGradient="linear(to-r, red.400,pink.400)"
+                  color={"white"}
+                  onClick={handleProfilePic}
+                  _hover={{
+                    bgGradient: "linear(to-r, red.400,pink.400)",
+                    boxShadow: "xl",
+                  }}
+                >
+                  Upload
+                </Button>
+                {/* </Flex> */}
+              </form>
+
               <Input
                 placeholder="Enter Name"
                 bg={"gray.100"}
@@ -358,10 +326,10 @@ export const Signup = () => {
               </Button>
             </Stack>
             <Button
-            isDisabled={profileUrl ? false : true}
+              isDisabled={profileUrl ? false : true}
               fontFamily={"heading"}
-              isLoading ={loading ? true : false}
-            loadingText='Submitting'
+              isLoading={loading ? true : false}
+              loadingText="Submitting"
               mt={8}
               w={"full"}
               bgGradient="linear(to-r, red.400,pink.400)"

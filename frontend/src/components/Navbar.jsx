@@ -78,7 +78,7 @@ export const Navbar = () => {
                   <Avatar
                     size={"sm"}
                     name={currentUser.user_name}
-                    src={"https://avatars.dicebear.com/api/male/username.svg"}
+                    src={currentUser.avatar}
                   />
                 </MenuButton>
                 <MenuList alignItems={"center"}>
@@ -87,7 +87,7 @@ export const Navbar = () => {
                     <Avatar
                       size={"xl"}
                       name={currentUser.user_name}
-                      src={"https://avatars.dicebear.com/api/male/username.svg"}
+                      src={currentUser.avatar}
                     />
                   </Center>
                   <br />

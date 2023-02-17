@@ -86,18 +86,14 @@ export const Profile = () => {
           <Image
             h={"120px"}
             w={"full"}
-            src={
-              "https://images.unsplash.com/photo-1612865547334-09cb8cb455da?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80"
-            }
+            src={user?.avatar}
             objectFit={"cover"}
           />
           <Flex justify={"center"} mt={-12}>
             <Avatar
               size={"xl"}
               name={user?.user_name}
-              src={
-                "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
-              }
+              src={user?.avatar}
               alt={"Author"}
               css={{
                 border: "2px solid white",
