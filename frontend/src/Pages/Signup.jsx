@@ -96,7 +96,7 @@ export const Signup = () => {
               >
                 😊 Hi connections!
                 <br />
-                😍 It's our pleauser
+                😍 It's our pleasure
               </Box>
             ),
           });
@@ -147,8 +147,8 @@ export const Signup = () => {
           render: () => (
             <Box
               color="black"
-              mt={"80px"}
-              bgColor="gray.50"
+              mt={"20px"}
+              bgColor="blue.400"
               fontSize={"lg"}
               borderRadius={"10px"}
               p={3}
