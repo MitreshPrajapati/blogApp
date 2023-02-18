@@ -43,7 +43,7 @@ export const SingleBlog = () => {
 
   if (loading) {
     return (
-      <Center mt={'5rem'}>
+      <Center mt={"5rem"}>
         <Spinner />
       </Center>
     );
