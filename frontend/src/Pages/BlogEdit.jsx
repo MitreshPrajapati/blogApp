@@ -120,6 +120,7 @@ export const BlogEdit = () => {
           ),
         });
         setImageUrl({});
+        setProfileUrl({})
         setValue(0);
         setDesc("");
         setTitle("");

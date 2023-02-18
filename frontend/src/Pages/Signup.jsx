@@ -141,6 +141,22 @@ export const Signup = () => {
       .post(`${URL}profileUrl`, formData)
       .then((res) => {
         // console.log(res.data.data[0].url);
+        toast({
+          position: "top",
+          duration: 2000,
+          render: () => (
+            <Box
+              color="black"
+              mt={"80px"}
+              bgColor="gray.50"
+              fontSize={"lg"}
+              borderRadius={"10px"}
+              p={3}
+            >
+              Image Upload Successfuly
+            </Box>
+          ),
+        });
         setProfileUrl(res.data.data[0].url);
       })
       .catch((err) => console.log(err));

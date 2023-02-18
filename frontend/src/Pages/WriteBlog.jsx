@@ -64,6 +64,7 @@ export const WriteBlog = () => {
             ),
           });
           setImageUrl({});
+          setProfileUrl({})
           setValue(0);
           setDesc("");
           setTitle("");

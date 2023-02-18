@@ -59,13 +59,14 @@ export const SingleBlog = () => {
           boxShadow="rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset"
           p={5}
           maxW={["95%", "80%", "80%"]}
+          borderRadius='0.5rem'
         >
           <Heading as="h1" p="0.2rem 1rem" fontSize={["xl", "2xl", "3xl"]}>
             {data.title}
           </Heading>
-          <SimpleGrid p="1rem" columns={[1, 1, 2]} gap="1rem" rowGap={"1rem"}>
-            <GridItem>
-              <Image src={data.images} />
+          <SimpleGrid p="1rem" columns={[1, 1, 2]} gap="1.5rem" rowGap={"1rem"}>
+            <GridItem  >
+              <Image borderRadius='2.5rem' src={data.images} />
             </GridItem>
             <GridItem>
               <Text fontSize={["md", "lg", "xl"]}>{data.desc}</Text>
