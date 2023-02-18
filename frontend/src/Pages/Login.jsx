@@ -36,7 +36,7 @@ export const Login = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const toast = useToast();
-  const [show , setShow] = useState(false)
+  const [show, setShow] = useState(false);
 
   const handleSubmit = () => {
     if (email !== "" && password !== "") {
@@ -45,13 +45,12 @@ export const Login = () => {
         password,
       };
 
-      // axios.post(`https://blogapp-gp7t.onrender.com/auth/login`, payload).then((res) => {
       axios.post(`${URL}auth/login`, payload).then((res) => {
         if (res.data.token) {
           console.log(res.data);
           localStorage.setItem("blogToken", res.data.token);
-          localStorage.setItem('CurrentUser', JSON.stringify(res.data.user));
-          
+          localStorage.setItem("CurrentUser", JSON.stringify(res.data.user));
+
           return (
             // console.log(res.data),
             toast({
@@ -69,7 +68,7 @@ export const Login = () => {
                 </Box>
               ),
             }),
-              navigate("/blog")
+            navigate("/blog")
           );
         } else {
           return toast({
@@ -83,8 +82,7 @@ export const Login = () => {
                 borderRadius={"10px"}
                 p={3}
               >
-                🤔Invalid Credentials!!
-                👉 Please try again later!!
+                🤔Invalid Credentials!! 👉 Please try again later!!
               </Box>
             ),
           });
@@ -235,7 +233,7 @@ export const Login = () => {
               <Input
                 placeholder="Enter your Password"
                 bg={"gray.100"}
-                type={show ? 'text' : 'password' }
+                type={show ? "text" : "password"}
                 border={0}
                 color={"gray.500"}
                 _placeholder={{
@@ -246,7 +244,9 @@ export const Login = () => {
               {/* <Button  fontFamily={"heading"} bg={"gray.200"} color={"gray.800"}>
                 Signup
               </Button> */}
-               <Button variant={'link'} size='xs' onClick={()=>setShow(!show)}>{show ? 'Hide Password' : 'Show Password'}</Button>
+              <Button variant={"link"} size="xs" onClick={() => setShow(!show)}>
+                {show ? "Hide Password" : "Show Password"}
+              </Button>
             </Stack>
             <Button
               fontFamily={"heading"}

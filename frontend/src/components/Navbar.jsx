@@ -18,22 +18,22 @@ import {
 } from "@chakra-ui/react";
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import { MenuBar } from "./MenuBar";
-import lightImage from '../assets/2.png'
-import darkImage from '../assets/1.png'
+import lightImage from "../assets/2.png";
+import darkImage from "../assets/1.png";
 
 export const Navbar = () => {
   const { colorMode, toggleColorMode } = useColorMode();
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    return( localStorage.removeItem("blogToken"),
-    console.log('click'),
-     navigate("/login")
-    )
+    return (
+      localStorage.removeItem("blogToken"),
+      // console.log('click'),
+      navigate("/login")
+    );
   };
 
-
-  let currentUser = JSON.parse(localStorage.getItem('CurrentUser'))
+  let currentUser = JSON.parse(localStorage.getItem("CurrentUser"));
   // console.log('currentUser', currentUser)
 
   return (
@@ -54,8 +54,12 @@ export const Navbar = () => {
             fontWeight="bold"
             fontFamily={"cursive"}
           >
-            <Box  cursor={"pointer"} onClick={() => navigate("/blog")}>
-             <Image  boxSize='110px' w='130px'   src={colorMode === 'dark' ? lightImage : darkImage} />
+            <Box cursor={"pointer"} onClick={() => navigate("/blog")}>
+              <Image
+                boxSize="110px"
+                w="130px"
+                src={colorMode === "dark" ? lightImage : darkImage}
+              />
             </Box>
           </Box>
 
@@ -64,8 +68,6 @@ export const Navbar = () => {
               <Button onClick={toggleColorMode}>
                 {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
               </Button>
-
-              
 
               <Menu>
                 <MenuButton
@@ -93,17 +95,16 @@ export const Navbar = () => {
                   <br />
                   <Center>
                     <Text>{currentUser.user_name}</Text>
-                
-                   
                   </Center>
                   <Center>
                     <Text>{currentUser.email}</Text>
-                
                   </Center>
                   <br />
                   <MenuDivider />
-                  <MenuItem onClick={() => navigate("/profile")}>Your Profile</MenuItem>
-                  <MenuItem onClick={ handleLogout}>Logout</MenuItem>
+                  <MenuItem onClick={() => navigate("/profile")}>
+                    Your Profile
+                  </MenuItem>
+                  <MenuItem onClick={handleLogout}>Logout</MenuItem>
                 </MenuList>
               </Menu>
             </Stack>

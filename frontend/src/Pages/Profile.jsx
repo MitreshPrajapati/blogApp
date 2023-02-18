@@ -14,7 +14,6 @@ import {
   GridItem,
   Divider,
   useColorMode,
-  Spinner,
 } from "@chakra-ui/react";
 import { URL } from "../api";
 import axios from "axios";
@@ -95,6 +94,7 @@ export const Profile = () => {
               name={user?.user_name}
               src={user?.avatar}
               alt={"Author"}
+              bgColor="gray.300"
               css={{
                 border: "2px solid white",
               }}
@@ -158,12 +158,12 @@ export const Profile = () => {
       <Container
         boxShadow="rgba(0, 0, 0, 0.16) 0px 1px 4px"
         maxW={["97%", "90%", "90%"]}
-        p='1rem'
+        p="1rem"
       >
         <Box>
-          {data.length == 0 ? (
-            <Flex columnGap='5px' justifyContent={'center'} alignItems="center">
-              <Box >
+          {data.length === 0 ? (
+            <Flex columnGap="5px" justifyContent={"center"} alignItems="center">
+              <Box>
                 <Button
                   isLoading
                   loadingText="Write some blog!!"
@@ -173,11 +173,10 @@ export const Profile = () => {
                 >
                   Submit
                 </Button>
-               
               </Box>
               <Box>
-              <Button onClick={()=>navigate('/writeblog')}>
-              <ArrowRightIcon/> Write blogs
+                <Button onClick={() => navigate("/writeblog")}>
+                  <ArrowRightIcon /> Write blogs
                 </Button>
               </Box>
             </Flex>

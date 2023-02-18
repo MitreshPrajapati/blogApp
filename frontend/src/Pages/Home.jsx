@@ -10,44 +10,31 @@ import {
   useColorMode,
   Box,
 } from "@chakra-ui/react";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 
 export const Home = () => {
-    const navigate = useNavigate()
-    const { colorMode, toggleColorMode } = useColorMode();
+  const navigate = useNavigate();
+  const { colorMode, toggleColorMode } = useColorMode();
 
-    const goToSignup=()=>
-    {
-        return(
-            navigate('/signup')
-        )
+  const goToSignup = () => {
+    return navigate("/signup");
+  };
 
-    }
-
-    const goToLogin = () =>
-    {
-        navigate('/login')
-    }
-
-
-
-
-
-
-
-
+  const goToLogin = () => {
+    navigate("/login");
+  };
 
   return (
     <Container maxW={"5xl"}>
-       <Flex p={2} flexDirection={'row-reverse'}>
-       <Box>
-       <Button  size='sm' padding={1} onClick={toggleColorMode}>
-                {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
-              </Button>
-       </Box>
-       </Flex>
-    
+      <Flex p={2} flexDirection={"row-reverse"}>
+        <Box>
+          <Button size="sm" padding={1} onClick={toggleColorMode}>
+            {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
+          </Button>
+        </Box>
+      </Flex>
+
       <Stack
         textAlign={"center"}
         align={"center"}
@@ -58,7 +45,7 @@ export const Home = () => {
           fontWeight={600}
           fontSize={{ base: "3xl", sm: "4xl", md: "6xl" }}
           lineHeight={"100%"}
-        //   border="1px solid black"
+          //   border="1px solid black"
           p={2}
         >
           Blog{" "}
@@ -66,16 +53,18 @@ export const Home = () => {
             App
           </Text>
         </Heading>
-       
+
         <Text color={"gray.500"} maxW={"3xl"}>
-          Never miss to write a Blog. Always share your thinking with whole world. Provider best content to your followers and whole world. Write your valuable quote and whatever you feel every morning.
+          Never miss to write a Blog. Always share your thinking with whole
+          world. Provider best content to your followers and whole world. Write
+          your valuable quote and whatever you feel every morning.
         </Text>
-         <Heading
+        <Heading
           fontWeight={600}
           fontSize={{ base: "2xl", sm: "3xl", md: "4xl" }}
           lineHeight={"100%"}
         >
-          Wait No More {" "}
+          Wait No More{" "}
           <Text as={"span"} color={"orange.400"}>
             Just Click
           </Text>
@@ -91,11 +80,11 @@ export const Home = () => {
           >
             Register
           </Button>
-          <Button  onClick={goToLogin} rounded={"full"} px={6}>
+          <Button onClick={goToLogin} rounded={"full"} px={6}>
             Login
           </Button>
         </Stack>
-        <Flex w={"full"} justifyContent='center'>
+        <Flex w={"full"} justifyContent="center">
           <Illustration
             height={{ sm: "18rem", lg: "19rem" }}
             mt={{ base: 8, sm: 5 }}

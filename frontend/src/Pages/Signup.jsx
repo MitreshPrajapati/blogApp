@@ -1,4 +1,4 @@
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import {
   Box,
   Flex,
@@ -13,9 +13,8 @@ import {
   AvatarGroup,
   Icon,
   useToast,
-  
 } from "@chakra-ui/react";
-import { Form, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 import arun from "../assets/arun.png";
@@ -81,7 +80,7 @@ export const Signup = () => {
           setEmail("");
           setPassword("");
         } else if (res.data.message === "User registred successfully.") {
-          console.log(res.data);
+          // console.log(res.data);
           setLoading(true);
 
           toast({
@@ -136,18 +135,16 @@ export const Signup = () => {
     console.log(profilePic);
     let formData = new FormData();
     await formData.append("image", profilePic);
-    console.log(formData);
+    // console.log(formData);
 
     axios
       .post(`${URL}profileUrl`, formData)
       .then((res) => {
-        console.log(res.data.data[0].url);
+        // console.log(res.data.data[0].url);
         setProfileUrl(res.data.data[0].url);
       })
       .catch((err) => console.log(err));
   };
-
-  // console.log(profileUrl)
 
   return (
     <Box position={"relative"}>
@@ -259,30 +256,30 @@ export const Signup = () => {
           <Box mt={7}>
             <Stack spacing={3}>
               <form encType="multipart/form-data">
-                {/* <Flex columnGap={2}> */}
-                <label className={Styles.label}>
-                  <Input
-                    onChange={(e) => setProfilePic(e.target.files[0])}
-                    // value = {profilePic}
-                    type="file"
-                    color={"gray.500"}
-                    accept="png/jpeg"
-                    required
-                  />
-                  <span> Choose Profile pic</span>
-                </label>
-                <Button
-                  bgGradient="linear(to-r, red.400,pink.400)"
-                  color={"white"}
-                  onClick={handleProfilePic}
-                  _hover={{
-                    bgGradient: "linear(to-r, red.400,pink.400)",
-                    boxShadow: "xl",
-                  }}
-                >
-                  Upload
-                </Button>
-                {/* </Flex> */}
+                <Flex columnGap={2}>
+                  <label className={Styles.label}>
+                    <Input
+                      onChange={(e) => setProfilePic(e.target.files[0])}
+                      // value = {profilePic}
+                      type="file"
+                      color={"gray.500"}
+                      accept="png/jpeg"
+                      required
+                    />
+                    <span> Choose Profile pic</span>
+                  </label>
+                  <Button
+                    bgGradient="linear(to-r, red.400,pink.400)"
+                    color={"white"}
+                    onClick={handleProfilePic}
+                    _hover={{
+                      bgGradient: "linear(to-r, red.400,pink.400)",
+                      boxShadow: "xl",
+                    }}
+                  >
+                    Upload
+                  </Button>
+                </Flex>
               </form>
 
               <Input

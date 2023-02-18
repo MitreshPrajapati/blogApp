@@ -27,7 +27,7 @@ import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { AiOutlineLike } from "react-icons/ai";
 import { BiMessageAlt } from "react-icons/bi";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { URL } from "../api";
 
 export const BlogPage = () => {
@@ -37,21 +37,22 @@ export const BlogPage = () => {
   // console.log(colorMode);
 
   let currentUser = JSON.parse(localStorage.getItem("CurrentUser"));
-  // console.log("currentUser", currentUser);
 
   const getBlogs = () => {
-    return axios
-      // .get(`https://blogapp-gp7t.onrender.com/blog/posts`, {
-      .get(`${URL}blog/posts`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authentication: `Bearer ${localStorage.getItem("blogToken")}`,
-        },
-      })
-      .then((res) => {
-        // console.log(res.data);
-        setData(res.data);
-      });
+    return (
+      axios
+        // .get(`https://blogapp-gp7t.onrender.com/blog/posts`, {
+        .get(`${URL}blog/posts`, {
+          headers: {
+            "Content-Type": "application/json",
+            Authentication: `Bearer ${localStorage.getItem("blogToken")}`,
+          },
+        })
+        .then((res) => {
+          // console.log(res.data);
+          setData(res.data);
+        })
+    );
   };
 
   useEffect(() => {
@@ -108,6 +109,7 @@ export const BlogPage = () => {
                     <Avatar
                       name={blogs.username}
                       src="https://bit.ly/sage-adebay"
+                      // src={blogs.avatar}
                     />
 
                     <Box>
@@ -150,7 +152,9 @@ export const BlogPage = () => {
                               navigate(`/blog/${blogs._id}`);
                             }}
                             icon={<EditIcon />}
-                          >Edit</MenuItem>
+                          >
+                            Edit
+                          </MenuItem>
                           <MenuItem
                             onClick={() => handleDelete(blogs._id)}
                             icon={<DeleteIcon />}
@@ -165,21 +169,30 @@ export const BlogPage = () => {
                   )}
                 </Flex>
               </CardHeader>
-              <Image height={"220px"} onClick={()=> navigate(`/singleblog/${blogs._id}`)}  cursor='pointer' src={blogs.images} alt="Chakra UI" />
+              <Image
+                height={"220px"}
+                onClick={() => navigate(`/singleblog/${blogs._id}`)}
+                cursor="pointer"
+                src={blogs.images}
+                alt="Chakra UI"
+              />
               <CardBody>
-                <Text fontSize={'xl'} className={Styles.blog_title} mb={2} onClick={()=> navigate(`/singleblog/${blogs._id}`)}  color={colorMode === "light" ? "black" : "red"} _hover={{textDecoration:"underline"}} cursor='pointer' fontWeight='700'>{blogs.title}</Text>
+                <Text
+                  fontSize={"xl"}
+                  className={Styles.blog_title}
+                  mb={2}
+                  onClick={() => navigate(`/singleblog/${blogs._id}`)}
+                  color={colorMode === "light" ? "black" : "red"}
+                  _hover={{ textDecoration: "underline" }}
+                  cursor="pointer"
+                  fontWeight="700"
+                >
+                  {blogs.title}
+                </Text>
                 <Text className={Styles.blog_desc}>{blogs.desc}</Text>
               </CardBody>
 
-              <CardFooter
-                justify="space-between"
-                flexWrap="wrap"
-                // sx={{
-                //   "& > button": {
-                //     minW: "136px",
-                //   },
-                // }}
-              >
+              <CardFooter justify="space-between" flexWrap="wrap">
                 <Button flex="1" variant="ghost">
                   <AiOutlineLike /> Like
                 </Button>
