@@ -175,6 +175,7 @@ export const BlogPage = () => {
                 cursor="pointer"
                 src={blogs.images}
                 alt="Chakra UI"
+                objectFit={'contain'}
               />
               <CardBody>
                 <Text

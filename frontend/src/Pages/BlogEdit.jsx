@@ -26,6 +26,7 @@ export const BlogEdit = () => {
   const [data, setData] = useState("");
   const [profilePic, setProfilePic] = useState({});
   const [profileUrl, setProfileUrl] = useState(false);
+  const [imageUpload, setImageUpload] = useState(false);
   const { id } = useParams();
   const toast = useToast();
   let count = 0;
@@ -62,6 +63,23 @@ export const BlogEdit = () => {
       .then((res) => {
         // console.log(res.data.data[0].url);
         setProfileUrl(res.data.data[0].url);
+        setImageUpload(true)
+        toast({
+          position: "top",
+          duration: 2000,
+          render: () => (
+            <Box
+              color="black"
+              mt={"80px"}
+              bgColor="gray.50"
+              fontSize={"lg"}
+              borderRadius={"10px"}
+              p={3}
+            >
+              Image Upload Successfuly
+            </Box>
+          ),
+        });
       })
       .catch((err) => console.log(err));
   };
@@ -127,7 +145,7 @@ export const BlogEdit = () => {
         fontFamily={"cursive"}
         fontSize={["2xl", "4xl"]}
         bg="tomato"
-        h="100px"
+        h="60px"
         bgGradient="linear(to-r, red.400,pink.400)"
         color="white"
       >
@@ -139,10 +157,10 @@ export const BlogEdit = () => {
         p={5}
         borderRadius={10}
         maxW={["90%", "60%", "50%", "40%"]}
-        mt={"2rem"}
+        mt={"0.5rem"}
       >
         <FormControl>
-          <FormLabel>Image Url</FormLabel>
+          <FormLabel>Select Image</FormLabel>
           <form encType="multipart/form-data">
             <Flex columnGap={2}>
               <label className={Styles.label}>
@@ -153,6 +171,7 @@ export const BlogEdit = () => {
                   color={"gray.500"}
                   accept="png/jpeg"
                   required
+                  isDisabled={profileUrl ? true : false}
                 />
                 <span> Choose Picture</span>
               </label>
@@ -164,12 +183,22 @@ export const BlogEdit = () => {
                   bgGradient: "linear(to-r, red.400,pink.400)",
                   boxShadow: "xl",
                 }}
+                isDisabled={profileUrl ? true : false}
               >
                 Upload
               </Button>
             </Flex>
           </form>
           <br />
+          <FormLabel>Image Url</FormLabel>
+          <Input
+            type="text"
+            onChange={(e) => setProfileUrl(e.target.value)}
+            placeholder="Image Url"
+            isDisabled={imageUpload ? true : false}
+          />
+          <br />
+        <br />
           <FormLabel>Give Title</FormLabel>
           <Input
             type="text"
@@ -193,8 +222,8 @@ export const BlogEdit = () => {
           </Text>
         </FormControl>
         <br />
-        <Button isDisabled={profileUrl ? false : true} onClick={handleBlog}>
-          Add Blog
+        <Button  onClick={handleBlog}>
+        Edit Blog
         </Button>
       </Container>
     </>

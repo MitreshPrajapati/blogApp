@@ -22,7 +22,10 @@ export const WriteBlog = () => {
   const [images, setImageUrl] = useState({});
   const [profilePic, setProfilePic] = useState({});
   const [profileUrl, setProfileUrl] = useState(false);
+  const [imageUpload, setImageUpload] = useState(false);
   let [value, setValue] = useState(0);
+
+
   const toast = useToast();
   let count = 0;
 
@@ -98,7 +101,24 @@ export const WriteBlog = () => {
       .post(`${URL}profileUrl`, formData)
       .then((res) => {
         // console.log(res.data.data[0].url);
+        toast({
+          position: "top",
+          duration: 2000,
+          render: () => (
+            <Box
+              color="black"
+              mt={"80px"}
+              bgColor="gray.50"
+              fontSize={"lg"}
+              borderRadius={"10px"}
+              p={3}
+            >
+              Image Upload Successfuly
+            </Box>
+          ),
+        });
         setProfileUrl(res.data.data[0].url);
+        setImageUpload(true)
       })
       .catch((err) => console.log(err));
   };
@@ -122,7 +142,7 @@ export const WriteBlog = () => {
         fontFamily={"cursive"}
         fontSize={["2xl", "4xl"]}
         bg="tomato"
-        h="100px"
+        h="60px"
         bgGradient="linear(to-r, red.400,pink.400)"
         color="white"
       >
@@ -134,16 +154,17 @@ export const WriteBlog = () => {
         p={5}
         borderRadius={10}
         maxW={["90%", "60%", "50%", "40%"]}
-        mt={"2rem"}
+        mt={"0.5rem"}
       >
         <FormControl>
-          <FormLabel>Image Url</FormLabel>
+          <FormLabel>Select Image</FormLabel>
           <form encType="multipart/form-data">
             <Flex columnGap={2}>
               <label className={Styles.label}>
                 <Input
                   onChange={(e) => setProfilePic(e.target.files[0])}
                   // value = {profilePic}
+                  isDisabled={profileUrl ? true : false}
                   type="file"
                   color={"gray.500"}
                   accept="png/jpeg"
@@ -159,11 +180,21 @@ export const WriteBlog = () => {
                   bgGradient: "linear(to-r, red.400,pink.400)",
                   boxShadow: "xl",
                 }}
+                isDisabled={profileUrl ? true : false}
               >
                 Upload
               </Button>
             </Flex>
           </form>
+          <br />
+          <FormLabel>Image Url</FormLabel>
+          <Input
+            type="text"
+            onChange={(e) => setProfileUrl(e.target.value)}
+            placeholder="Image Url"
+            isDisabled={imageUpload ? true : false}
+          />
+          <br />
           <br />
           <FormLabel>Give Title</FormLabel>
           <Input

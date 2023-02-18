@@ -8,6 +8,7 @@ import {
   GridItem,
   Center,
   Spinner,
+  useColorMode,
 } from "@chakra-ui/react";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -18,6 +19,7 @@ import { Navbar } from "../components/Navbar";
 export const SingleBlog = () => {
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(false);
+  const {colorMode}= useColorMode()
 
   const { id } = useParams();
 
@@ -58,7 +60,7 @@ export const SingleBlog = () => {
           p={5}
           maxW={["95%", "80%", "80%"]}
         >
-          <Heading as="h1" fontSize={["xl", "2xl", "3xl"]}>
+          <Heading as="h1" p="0.2rem 1rem" fontSize={["xl", "2xl", "3xl"]}>
             {data.title}
           </Heading>
           <SimpleGrid p="1rem" columns={[1, 1, 2]} gap="1rem" rowGap={"1rem"}>
@@ -70,14 +72,26 @@ export const SingleBlog = () => {
             </GridItem>
           </SimpleGrid>
 
-          <Box>
+          <Box >
             <Text
-              fontSize={"lg"}
-              color="lightblue"
+            p="0.2rem 1rem"
+              fontSize={"sm"}
+              color={colorMode === "light" ? "black" : "gray.100"}
               fontWeight="600"
               fontFamily="cursive"
             >
               Author : {data.username}
+             
+            </Text>
+            <Text
+            p="0.2rem 1rem"
+              fontSize={"sm"}
+              color={colorMode === "light" ? "black" : "gray.100"}
+              fontWeight="600"
+              fontFamily="cursive"
+            >
+               Posted : {data.createdAt?.slice(0, 10)}
+             
             </Text>
           </Box>
         </Container>
