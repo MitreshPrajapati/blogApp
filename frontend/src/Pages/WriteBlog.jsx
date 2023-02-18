@@ -26,7 +26,7 @@ export const WriteBlog = () => {
   const toast = useToast();
   let count = 0;
 
-  const handleBlog = async (e) => {
+  const handleBlog = async () => {
     if (images !== {} && title !== "" && desc !== "") {
       const payload = {
         title,
@@ -42,7 +42,7 @@ export const WriteBlog = () => {
           },
         })
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           toast({
             position: "top",
             duration: 2000,
@@ -92,12 +92,12 @@ export const WriteBlog = () => {
     console.log(profilePic);
     let formData = new FormData();
     await formData.append("image", profilePic);
-    console.log(formData);
+    // console.log(formData);
 
     axios
       .post(`${URL}profileUrl`, formData)
       .then((res) => {
-        console.log(res.data.data[0].url);
+        // console.log(res.data.data[0].url);
         setProfileUrl(res.data.data[0].url);
       })
       .catch((err) => console.log(err));
