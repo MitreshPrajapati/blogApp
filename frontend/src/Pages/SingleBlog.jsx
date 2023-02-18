@@ -69,7 +69,7 @@ export const SingleBlog = () => {
               <Image borderRadius='2.5rem' src={data.images} />
             </GridItem>
             <GridItem>
-              <Text fontSize={["md", "lg", "xl"]}>{data.desc}</Text>
+              <Text textAlign={'justify'} fontSize={["sm", "lg", "xl"]}>{data.desc}</Text>
             </GridItem>
           </SimpleGrid>
 

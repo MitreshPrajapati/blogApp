@@ -112,7 +112,7 @@ export const Signup = () => {
         duration: 2000,
         render: () => (
           <Box
-            color="white"
+            color='blue.400'
             bgGradient="linear(to-r, red.400,pink.400)"
             fontSize={"xl"}
             borderRadius={"10px"}
