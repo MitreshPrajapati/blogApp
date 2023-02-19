@@ -19,7 +19,7 @@ import { Navbar } from "../components/Navbar";
 export const SingleBlog = () => {
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(false);
-  const {colorMode}= useColorMode()
+  const { colorMode } = useColorMode();
 
   const { id } = useParams();
 
@@ -58,41 +58,57 @@ export const SingleBlog = () => {
           mt="1rem"
           boxShadow="rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset"
           p={5}
-          maxW={["95%", "80%", "80%"]}
-          borderRadius='0.5rem'
+          mb="1rem"
+          maxW={["95%", "90%", "80%"]}
+          borderRadius="0.5rem"
         >
-          <Heading as="h1" p="0.2rem 1rem" fontSize={["xl", "2xl", "3xl"]}>
-            {data.title}
-          </Heading>
-          <SimpleGrid p="1rem" columns={[1, 1, 2]} gap="1.5rem" rowGap={"1rem"}>
-            <GridItem  >
-              <Image borderRadius='2.5rem' src={data.images} />
+          <SimpleGrid
+            p="1rem"
+            templateColumns={[
+              "repeat(1,1fr)",
+              "repeat(1,1fr)",
+              "repeat(1,1fr)",
+              "repeat(2,auto)",
+            ]}
+            gap="1.5rem"
+            rowGap={"1rem"}
+          >
+            <GridItem>
+              <Image borderRadius="0.35rem" m="auto" src={data.images} />
             </GridItem>
             <GridItem>
-              <Text textAlign={'justify'} fontSize={["sm", "lg", "xl"]}>{data.desc}</Text>
+              <Heading
+                as="h1"
+                p="0 0 0.5rem 0"
+                fontStyle="italic"
+                fontSize={["xl", "2xl", "3xl"]}
+              >
+                {data.title}
+              </Heading>
+              <Text textAlign={"justify"} fontSize={["sm", "lg", "xl"]}>
+                {data.desc}
+              </Text>
             </GridItem>
           </SimpleGrid>
 
-          <Box >
+          <Box>
             <Text
-            p="0.2rem 1rem"
+              p="0.2rem 1rem"
               fontSize={"sm"}
               color={colorMode === "light" ? "black" : "gray.100"}
               fontWeight="600"
               fontFamily="cursive"
             >
               Author : {data.username}
-             
             </Text>
             <Text
-            p="0.2rem 1rem"
+              p="0.2rem 1rem"
               fontSize={"sm"}
               color={colorMode === "light" ? "black" : "gray.100"}
               fontWeight="600"
               fontFamily="cursive"
             >
-               Posted : {data.createdAt?.slice(0, 10)}
-             
+              Posted : {data.createdAt?.slice(0, 10)}
             </Text>
           </Box>
         </Container>
